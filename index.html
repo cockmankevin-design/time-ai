@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
+<title>Time.AI — do less, finish more</title>
+<meta name="description" content="A tiny time-management app for college students: AI coach, 3 tasks, a time-blocked day, focus sessions, sleep tracking.">
+<meta name="theme-color" content="#17150f">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23e2572b'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Georgia'>3</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    color-scheme: dark;
+    --paper: #17150f;
+    --paper-raise: #211e17;
+    --paper-sunk: #100f0a;
+    --ink: #f0eadd;
+    --ink-soft: #a89f8e;
+    --line: #37322a;
+    --accent: #f0663a;        /* sunrise coral */
+    --accent-deep: #ff7c50;
+    --accent-soft: #3a251d;
+    --leaf: #5cb37f;          /* done green */
+    --leaf-soft: #21301f;
+    --night: #93a7dd;         /* sleep indigo */
+    --night-soft: #232a3d;
+    --gold: #e5b558;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 10px 28px rgba(0,0,0,.4);
+    --radius: 20px;
+    --glow-a: rgba(240,102,58,.12);
+    --glow-b: rgba(147,167,221,.07);
+    --tabbar-h: 76px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; height: 100%; }
+  body {
+    font-family: 'Karla', sans-serif;
+    color: var(--ink);
+    height: 100%;
+    overflow: hidden;
+  }
+  button, input { font-family: inherit; }
+
+  /* ---------- desktop stage (device mockup) ---------- */
+  .stage {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(1200px 800px at 50% -10%, #2a2620 0%, #0c0b08 62%);
+  }
+
+  /* ---------- phone frame: collapses to nothing on a real phone ---------- */
+  .phone-frame {
+    position: relative;
+    width: 100%; height: 100%;
+  }
+  @media (min-width: 560px) {
+    .stage { padding: 40px; }
+    .phone-frame {
+      width: 390px; height: 844px;
+      max-height: calc(100vh - 80px); max-height: calc(100dvh - 80px);
+      padding: 16px;
+      background: linear-gradient(155deg, #2b2b2b, #0a0a0a);
+      border-radius: 54px;
+      box-shadow:
+        0 40px 80px -20px rgba(0,0,0,.65),
+        0 0 0 2px rgba(255,255,255,.06) inset,
+        0 0 0 8px #000 inset;
+    }
+    .phone-frame::before {
+      /* notch */
+      content: '';
+      position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 26px;
+      background: #000; border-radius: 0 0 18px 18px;
+      z-index: 20;
+    }
+    .phone-frame::after {
+      /* side button */
+      content: '';
+      position: absolute; right: -3px; top: 160px;
+      width: 3px; height: 70px;
+      background: #1a1a1a; border-radius: 2px 0 0 2px;
+    }
+    .shell { border-radius: 38px; }
+  }
+
+  /* ---------- app shell ---------- */
+  .shell {
+    position: relative;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--paper);
+    background-image: radial-gradient(rgba(35,32,26,.035) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  .shell::before {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(560px 380px at 12% -6%, var(--glow-a), transparent 70%),
+      radial-gradient(520px 420px at 108% 32%, var(--glow-b), transparent 70%);
+    z-index: 0;
+  }
+
+  .screen {
+    position: absolute; inset: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: calc(18px + env(safe-area-inset-top)) 18px calc(var(--tabbar-h) + 22px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(6px);
+    transition: opacity .18s ease;
+    z-index: 1;
+  }
+  .screen.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+    animation: screenIn .32s ease both;
+  }
+  @keyframes screenIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* ---------- topbar (non-home screens) ---------- */
+  .topbar { margin-bottom: 18px; animation: rise .4s ease both; }
+  .topbar .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .topbar h1 { font-family: 'Fraunces', serif; font-weight: 600; font-size: 30px; letter-spacing: -.01em; }
+  .topbar p { font-size: 13.5px; color: var(--ink-soft); margin-top: 6px; line-height: 1.4; }
+
+  /* ---------- home header ---------- */
+  header.hero { margin-bottom: 18px; animation: rise .5s ease both; }
+  .kicker { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 5px;
+    font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: #fff; background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    padding: 5px 12px; border-radius: 999px;
+    box-shadow: 0 3px 10px rgba(226,87,43,.35);
+  }
+  .dateline { font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-soft); }
+  h1.greeting {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 30px;
+    line-height: 1.1; letter-spacing: -.01em;
+  }
+  .quote {
+    margin-top: 12px; padding: 13px 15px;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-raise);
+    border-radius: 0 16px 16px 0;
+    box-shadow: var(--shadow);
+    font-style: italic; font-size: 14px; color: var(--ink-soft); line-height: 1.4;
+  }
+  .quote b { display: block; margin-top: 5px; font-style: normal; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+
+  /* ---------- cards ---------- */
+  section {
+    background: var(--paper-raise);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 17px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
+    animation: rise .45s ease both;
+  }
+  .screen section:nth-of-type(1) { animation-delay: .04s; }
+  .screen section:nth-of-type(2) { animation-delay: .09s; }
+  .screen section:nth-of-type(3) { animation-delay: .14s; }
+  .screen section:nth-of-type(4) { animation-delay: .19s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  .card-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  h2 {
+    font-family: 'Fraunces', serif; font-weight: 600; font-size: 18.5px;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .count-pill { font-size: 11.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); border-radius: 999px; padding: 4px 10px; }
+  .count-pill.complete { color: var(--leaf); background: var(--leaf-soft); }
+  .sub { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 12px; line-height: 1.4; }
+
+  /* ---------- tasks ---------- */
+  .slots { display: flex; gap: 6px; margin-bottom: 12px; }
+  .slot { height: 5px; flex: 1; border-radius: 3px; background: var(--line); transition: background .3s; }
+  .slot.filled { background: var(--accent); }
+  .slot.done   { background: var(--leaf); }
+
+  ul.tasks { list-style: none; }
+  .tasks li { display: flex; align-items: center; gap: 10px; padding: 10px 2px; border-bottom: 1px dashed var(--line); animation: rise .3s ease both; }
+  .tasks li:last-child { border-bottom: none; }
+  .tick {
+    flex: none; width: 26px; height: 26px;
+    border: 2px solid var(--ink-soft); border-radius: 9px; background: none; cursor: pointer;
+    display: grid; place-items: center; color: transparent; font-size: 14px; transition: all .18s;
+  }
+  .tick:active { transform: scale(.88); }
+  li.done .tick { background: var(--leaf); border-color: var(--leaf); color: #fff; }
+  .task-text { flex: 1; font-size: 15px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
+  li.done .task-text { text-decoration: line-through; color: var(--ink-soft); }
+  .icon-btn {
+    flex: none; border: none; background: none; color: var(--ink-soft);
+    font-size: 15px; cursor: pointer; padding: 5px 6px; border-radius: 8px; line-height: 1;
+    transition: background .15s, color .15s;
+  }
+  .icon-btn:active { background: var(--accent-soft); color: var(--accent); }
+  .del { font-size: 17px; }
+
+  form.add { display: flex; gap: 8px; margin-top: 10px; }
+  form.add input {
+    flex: 1; min-width: 0; font: 500 15px 'Karla', sans-serif; color: var(--ink);
+    background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 11px 13px; outline: none; transition: border-color .15s;
+  }
+  form.add input:focus { border-color: var(--accent); }
+  form.add input::placeholder { color: var(--ink-soft); opacity: .7; }
+  form.add button {
+    font: 700 14.5px 'Karla', sans-serif; background: var(--accent); color: #fff;
+    border: none; border-radius: 12px; padding: 0 17px; cursor: pointer;
+    transition: transform .12s; box-shadow: 0 3px 10px rgba(226,87,43,.25);
+  }
+  form.add button:active { transform: scale(.94); }
+  .full-note { margin-top: 12px; text-align: center; font-size: 13px; font-weight: 700; color: var(--leaf); background: var(--leaf-soft); border-radius: 10px; padding: 9px; }
+  .all-done { color: var(--accent); background: var(--accent-soft); }
+  .empty-hint { text-align: center; font-size: 13px; color: var(--ink-soft); padding: 4px 0 8px; font-style: italic; }
+
+  /* ---------- time blocks ---------- */
+  ul.blocks { list-style: none; margin-bottom: 4px; }
+  .blocks li { display: flex; align-items: center; gap: 12px; padding: 9px 2px; border-bottom: 1px dashed var(--line); animation: rise .3s ease both; }
+  .blocks li:last-child { border-bottom: none; }
+  .block-time { flex: none; width: 70px; font-weight: 700; font-size: 13px; font-variant-numeric: tabular-nums; color: var(--ink-soft); }
+  .block-text { flex: 1; font-size: 14.5px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
+  .blocks li.past { opacity: .45; }
+  .blocks li.now { background: var(--accent-soft); border-radius: 10px; border-bottom-color: transparent; padding-left: 9px; padding-right: 5px; }
+  .blocks li.now .block-time { color: var(--accent); }
+  .now-tag {
+    flex: none; font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: #fff; background: var(--accent); border-radius: 999px; padding: 3px 7px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .6; } }
+  #block-form { flex-wrap: wrap; }
+  #block-form #block-text { flex: 1 1 100%; }
+  form.add input[type="time"] {
+    flex: 1; min-width: 0; font: 500 14.5px 'Karla', sans-serif; color: var(--ink);
+    background: var(--paper); border: 1.5px solid var(--line); border-radius: 12px; padding: 11px 10px; outline: none;
+  }
+  form.add input[type="time"]:focus { border-color: var(--accent); }
+
+  /* ---------- focus ring ---------- */
+  .focus-body { text-align: center; }
+  .ring-wrap { position: relative; width: 176px; height: 176px; margin: 6px auto 4px; }
+  .ring-wrap svg { transform: rotate(-90deg); }
+  .ring-track { fill: none; stroke: var(--line); stroke-width: 9; }
+  .ring-bar { fill: none; stroke: var(--accent); stroke-width: 9; stroke-linecap: round; transition: stroke-dashoffset .3s linear; }
+  .ring-center { position: absolute; inset: 0; display: grid; place-content: center; gap: 2px; }
+  .timer { font-family: 'Fraunces', serif; font-weight: 700; font-size: 39px; font-variant-numeric: tabular-nums; letter-spacing: .01em; line-height: 1; }
+  .timer.running { color: var(--accent); }
+  .timer-label { font-size: 10.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); }
+  .focus-suggest { font-size: 13px; color: var(--ink-soft); margin-bottom: 10px; font-style: italic; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .focus-suggest b { color: var(--ink); font-style: normal; }
+  .focus-count { font-size: 12.5px; color: var(--ink-soft); margin-bottom: 12px; }
+  .focus-count b { color: var(--accent); }
+  .btn-row { display: flex; gap: 10px; justify-content: center; }
+  .btn { font: 700 14.5px 'Karla', sans-serif; border: none; border-radius: 999px; padding: 12px 26px; cursor: pointer; transition: transform .12s; }
+  .btn:active { transform: scale(.95); }
+  .btn-primary { background: var(--ink); color: var(--paper); box-shadow: var(--shadow); }
+  .btn-primary.going { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(226,87,43,.35); }
+  .btn-ghost { background: none; border: 1.5px solid var(--line); color: var(--ink-soft); }
+  .btn-block { width: 100%; }
+
+  /* ---------- sleep ---------- */
+  .sleep-hero { text-align: center; padding: 8px 4px 4px; }
+  .sleep-hero .moon-big { font-size: 56px; display: block; margin-bottom: 6px; filter: drop-shadow(0 6px 18px rgba(147,167,221,.35)); }
+  .sleep-row { display: flex; gap: 10px; }
+  .sleep-row .btn { flex: 1; }
+  .btn-yes { background: var(--night); color: #fff; box-shadow: var(--shadow); }
+  .btn-no  { background: none; border: 1.5px solid var(--line); color: var(--ink-soft); }
+  .sleep-answer { text-align: center; font-size: 14px; font-weight: 700; padding: 12px; border-radius: 12px; background: var(--night-soft); color: var(--night); }
+  .sleep-undo { display: block; margin-top: 6px; font-size: 12px; font-weight: 400; color: var(--ink-soft); background: none; border: none; cursor: pointer; text-decoration: underline; width: 100%; }
+  .tip-card { display: flex; gap: 12px; align-items: flex-start; }
+  .tip-card .emoji { font-size: 22px; flex: none; }
+  .tip-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+  .streak-badge {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    background: var(--night-soft); border-radius: 14px; padding: 14px; margin-bottom: 4px;
+  }
+  .streak-badge .flame { font-size: 24px; }
+  .streak-badge .num { font-family: 'Fraunces', serif; font-weight: 700; font-size: 24px; color: var(--night); }
+  .streak-badge .lbl { font-size: 12px; color: var(--ink-soft); }
+
+  /* ---------- week ---------- */
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 14px; }
+  .day-col { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 2px 7px; border-radius: 12px; border: 1.5px solid transparent; }
+  .day-col.today { border-color: var(--accent); background: var(--paper); }
+  .day-letter { font-size: 10px; font-weight: 700; letter-spacing: .06em; color: var(--ink-soft); }
+  .day-col.today .day-letter { color: var(--accent); }
+  .pips { display: flex; flex-direction: column-reverse; gap: 3px; }
+  .pip { width: 13px; height: 6px; border-radius: 3px; background: var(--line); }
+  .pip.on { background: var(--leaf); }
+  .focus-dots { display: flex; gap: 3px; min-height: 5px; }
+  .fdot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
+  .moon { font-size: 10px; line-height: 1; opacity: .15; filter: grayscale(1); }
+  .moon.on { opacity: 1; filter: none; }
+
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+  .stat { text-align: center; padding: 12px 5px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+  .stat .n { font-family: 'Fraunces', serif; font-weight: 700; font-size: 24px; display: block; }
+  .stat .l { font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); }
+  .stat:nth-child(1) .n { color: var(--leaf); }
+  .stat:nth-child(2) .n { color: var(--accent); }
+  .stat:nth-child(3) .n { color: var(--night); }
+
+  .insight-row { display: flex; flex-direction: column; gap: 8px; }
+  .insight-row .item { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--ink-soft); line-height: 1.4; }
+  .insight-row .item .dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); margin-top: 5px; }
+  .insight-row .item b { color: var(--ink); font-weight: 700; }
+
+  footer.credit { text-align: center; margin-top: 8px; font-size: 12px; color: var(--ink-soft); line-height: 1.6; }
+  footer.credit a { color: var(--accent); font-weight: 700; }
+
+  /* ---------- AI assistant ---------- */
+  .assistant { background: linear-gradient(160deg, var(--paper-raise), var(--accent-soft)); border: 1px solid var(--line); }
+  .assistant h2 .spark { animation: twinkle 2.4s ease-in-out infinite; display: inline-block; }
+  @keyframes twinkle { 0%,100% { transform: scale(1) rotate(0); opacity: 1; } 50% { transform: scale(1.18) rotate(12deg); opacity: .85; } }
+  .chat { display: flex; flex-direction: column; gap: 9px; max-height: 280px; overflow-y: auto; padding: 4px 2px 8px; margin-bottom: 10px; scroll-behavior: smooth; }
+  .msg { max-width: 88%; padding: 10px 13px; font-size: 14px; line-height: 1.42; border-radius: 16px; animation: rise .3s ease both; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .msg.bot { align-self: flex-start; background: var(--paper); border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+  .msg.me { align-self: flex-end; background: var(--accent); color: #fff; border-bottom-right-radius: 5px; }
+  .msg b { font-weight: 700; }
+  .suggest-list { list-style: none; margin: 8px 0 2px; display: flex; flex-direction: column; gap: 6px; }
+  .suggest-list li { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 500; background: var(--accent-soft); color: var(--ink); border-radius: 10px; padding: 8px 10px; }
+  .suggest-list li .rank { color: var(--accent); font-weight: 700; font-family: 'Fraunces', serif; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 10px; }
+  .chip {
+    font: 600 12px 'Karla', sans-serif; color: var(--accent); background: var(--paper);
+    border: 1px solid var(--line); border-radius: 999px; padding: 7px 12px; cursor: pointer;
+    transition: background .15s, transform .12s;
+  }
+  .chip:active { transform: scale(.94); }
+  .chip.apply { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 3px 10px rgba(240,102,58,.3); }
+  .typing { display: inline-flex; gap: 4px; align-items: center; padding: 3px 0; }
+  .typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-soft); animation: blink 1.2s infinite ease-in-out; }
+  .typing span:nth-child(2) { animation-delay: .2s; }
+  .typing span:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%,80%,100% { opacity: .25; } 40% { opacity: 1; } }
+
+  /* ---------- profile ---------- */
+  .profile-card { text-align: center; padding: 26px 18px 20px; }
+  .avatar {
+    width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 12px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, var(--accent), var(--accent-deep));
+    font-family: 'Fraunces', serif; font-weight: 700; font-size: 30px; color: #fff;
+    box-shadow: 0 6px 20px rgba(226,87,43,.35);
+  }
+  .profile-name { font-family: 'Fraunces', serif; font-weight: 600; font-size: 22px; }
+  .profile-sub { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+  .profile-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 18px; }
+  .profile-stats .stat { padding: 10px 4px; }
+  .team-list { display: flex; flex-direction: column; gap: 2px; }
+  .team-row { display: flex; align-items: center; gap: 12px; padding: 10px 2px; border-bottom: 1px dashed var(--line); }
+  .team-row:last-child { border-bottom: none; }
+  .team-avatar {
+    width: 34px; height: 34px; border-radius: 50%; flex: none;
+    display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff;
+    background: var(--night);
+  }
+  .team-row span { font-size: 14.5px; font-weight: 500; }
+  .team-row small { display: block; font-size: 11.5px; color: var(--ink-soft); font-weight: 400; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 4px; }
+  .badge { font-size: 11.5px; font-weight: 700; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 6px 11px; color: var(--ink-soft); }
+  .badge.on { background: var(--leaf-soft); color: var(--leaf); border-color: transparent; }
+
+  /* ---------- settings ---------- */
+  .row-list { display: flex; flex-direction: column; }
+  .setting-row { display: flex; align-items: center; gap: 12px; padding: 13px 2px; border-bottom: 1px dashed var(--line); }
+  .setting-row:last-child { border-bottom: none; }
+  .setting-row .ico { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-size: 15px; background: var(--paper); }
+  .setting-row .txt { flex: 1; min-width: 0; }
+  .setting-row .txt b { display: block; font-size: 14.5px; font-weight: 600; }
+  .setting-row .txt small { display: block; font-size: 12px; color: var(--ink-soft); margin-top: 1px; }
+  .setting-row .chev { color: var(--ink-soft); font-size: 16px; }
+
+  .switch { position: relative; flex: none; width: 44px; height: 26px; }
+  .switch input { opacity: 0; width: 100%; height: 100%; position: absolute; cursor: pointer; margin: 0; }
+  .switch .track { position: absolute; inset: 0; background: var(--line); border-radius: 999px; transition: background .18s; }
+  .switch .knob { position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--ink-soft); transition: transform .18s, background .18s; }
+  .switch input:checked + .track { background: var(--accent); }
+  .switch input:checked + .track + .knob { transform: translateX(18px); background: #fff; }
+  .switch input:disabled + .track { opacity: .5; }
+
+  .danger { color: #f0663a; }
+  .btn-danger { background: none; border: 1.5px solid var(--accent-soft); color: var(--accent); }
+
+  /* ---------- toast ---------- */
+  .toast {
+    position: absolute; left: 50%; bottom: calc(var(--tabbar-h) + 14px);
+    transform: translate(-50%, 8px);
+    background: var(--ink); color: var(--paper);
+    font-size: 13px; font-weight: 600;
+    padding: 11px 18px; border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    z-index: 50; opacity: 0; pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease;
+    white-space: nowrap; max-width: 88%; overflow: hidden; text-overflow: ellipsis;
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ---------- bottom tab bar ---------- */
+  .tabbar {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    z-index: 10;
+    display: flex;
+    background: rgba(23,21,15,.86);
+    -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+    border-top: 1px solid var(--line);
+    padding: 8px 6px calc(10px + env(safe-area-inset-bottom));
+  }
+  .tab {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+    background: none; border: none; color: var(--ink-soft); cursor: pointer;
+    padding: 6px 2px; border-radius: 12px; transition: color .15s;
+  }
+  .tab .tab-ico { font-size: 20px; line-height: 1; transition: transform .18s; }
+  .tab .tab-lbl { font-size: 10px; font-weight: 700; letter-spacing: .02em; }
+  .tab.active { color: var(--accent); }
+  .tab.active .tab-ico { transform: translateY(-1px) scale(1.08); }
+  .tab:active .tab-ico { transform: scale(.85); }
+  .tab-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--accent); opacity: 0; transition: opacity .15s; }
+  .tab.active .tab-dot { opacity: 1; }
+
+  /* ---------- confetti ---------- */
+  .confetti { position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 2px; z-index: 99; pointer-events: none; animation: fall linear forwards; }
+  @keyframes fall { to { transform: translateY(700px) rotate(720deg); opacity: .2; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    section, .screen, .tasks li, .blocks li, .msg { animation: none; }
+    .confetti { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+<div class="phone-frame">
+<div class="shell" id="shell">
+
+  <!-- ============ HOME ============ -->
+  <main class="screen active" data-screen="home">
+    <header class="hero">
+      <div class="kicker"><span class="brand">✨ Time.AI</span><span class="dateline" id="dateline"></span></div>
+      <h1 class="greeting" id="greeting"></h1>
+      <div class="quote"><span id="quote-text"></span><b id="quote-author"></b></div>
+    </header>
+
+    <section class="assistant">
+      <div class="card-head"><h2><span class="spark">✨</span> Ask Time.AI</h2></div>
+      <p class="sub">Dump everything on your mind. I’ll help you pick the 3 that matter.</p>
+      <div class="chat" id="chat" aria-live="polite"></div>
+      <div class="chip-row" id="chips"></div>
+      <form class="add" id="chat-form">
+        <input id="chat-input" maxlength="240" placeholder="e.g. essay due Friday, laundry, gym…" autocomplete="off">
+        <button type="submit" aria-label="Send">Send</button>
+      </form>
+    </section>
+
+    <section id="tasks-card">
+      <div class="card-head">
+        <h2>📝 Today’s Top 3</h2>
+        <span class="count-pill" id="task-pill">0 / 3</span>
+      </div>
+      <p class="sub">Three tasks max. If everything matters, nothing does.</p>
+      <div class="slots" id="slots"></div>
+      <div class="empty-hint" id="tasks-empty">What are the three things that would make today a win?</div>
+      <ul class="tasks" id="task-list"></ul>
+      <form class="add" id="add-form">
+        <input id="task-input" maxlength="80" placeholder="What actually matters today?" autocomplete="off">
+        <button type="submit">Add</button>
+      </form>
+      <div class="full-note" id="full-note" hidden></div>
+    </section>
+
+    <section>
+      <div class="card-head">
+        <h2>🗓️ Today’s plan</h2>
+        <span class="count-pill" id="block-pill" hidden></span>
+      </div>
+      <p class="sub">Give each commitment a time. Tap 🕐 on a task to schedule it.</p>
+      <ul class="blocks" id="block-list"></ul>
+      <div class="empty-hint" id="blocks-empty">Nothing scheduled yet — block your classes and your Top 3.</div>
+      <form class="add" id="block-form">
+        <input id="block-text" maxlength="60" placeholder="Class, task, gym…" autocomplete="off" required>
+        <input type="time" id="block-time" required>
+        <button type="submit">Add</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>⏳ Focus session</h2>
+      <p class="sub">Phone face-down, 25 minutes, one task.</p>
+      <div class="focus-body">
+        <div class="ring-wrap">
+          <svg width="176" height="176" viewBox="0 0 176 176" aria-hidden="true">
+            <circle class="ring-track" cx="88" cy="88" r="80"></circle>
+            <circle class="ring-bar" id="ring-bar" cx="88" cy="88" r="80"></circle>
+          </svg>
+          <div class="ring-center">
+            <div class="timer" id="timer">25:00</div>
+            <div class="timer-label" id="timer-label">ready</div>
+          </div>
+        </div>
+        <div class="focus-suggest" id="focus-suggest" hidden></div>
+        <div class="focus-count">Sessions today: <b id="focus-count">0</b></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="focus-btn">Start focus</button>
+          <button class="btn btn-ghost" id="focus-reset" hidden>Give up</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ SLEEP ============ -->
+  <main class="screen" data-screen="sleep">
+    <div class="topbar">
+      <div class="eyebrow">Wind down</div>
+      <h1>Sleep</h1>
+      <p>Time management starts the night before.</p>
+    </div>
+
+    <section>
+      <div class="sleep-hero">
+        <span class="moon-big" id="sleep-hero-moon">🌙</span>
+      </div>
+      <div class="card-head"><h2>Check in</h2></div>
+      <p class="sub">Did you get 7+ hours last night?</p>
+      <div class="sleep-row" id="sleep-row">
+        <button class="btn btn-yes" id="sleep-yes">Yes 😌</button>
+        <button class="btn btn-no" id="sleep-no">Not really 🥱</button>
+      </div>
+      <div class="sleep-answer" id="sleep-answer" hidden>
+        <span id="sleep-msg"></span>
+        <button class="sleep-undo" id="sleep-undo">change answer</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="streak-badge">
+        <span class="flame">🔥</span>
+        <span class="num" id="sleep-streak-num">0</span>
+        <span class="lbl">night streak</span>
+      </div>
+      <div class="week" id="sleep-week"></div>
+    </section>
+
+    <section>
+      <div class="card-head"><h2>💡 Why it matters</h2></div>
+      <div class="tip-card">
+        <span class="emoji">🧠</span>
+        <p>A rested brain plans better and works faster. Pulling an all-nighter usually costs more time tomorrow than it saves tonight — our own research backs this one up.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ PROGRESS ============ -->
+  <main class="screen" data-screen="progress">
+    <div class="topbar">
+      <div class="eyebrow">This week</div>
+      <h1>Progress</h1>
+      <p>Small numbers, real momentum.</p>
+    </div>
+
+    <section>
+      <div class="card-head"><h2>📈 7-day overview</h2></div>
+      <div class="week" id="week"></div>
+      <div class="stats">
+        <div class="stat"><span class="n" id="stat-tasks">0</span><span class="l">Tasks done</span></div>
+        <div class="stat"><span class="n" id="stat-focus">0</span><span class="l">Focus sessions</span></div>
+        <div class="stat"><span class="n" id="stat-sleep">0</span><span class="l">Sleep streak</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card-head"><h2>🎯 Built from our research</h2></div>
+      <div class="insight-row">
+        <div class="item"><span class="dot"></span><span><b>Planning:</b> students overload their to-do list — Time.AI caps you at 3.</span></div>
+        <div class="item"><span class="dot"></span><span><b>Distractions:</b> tech reliance breaks focus — the timer keeps your phone down.</span></div>
+        <div class="item"><span class="dot"></span><span><b>Sleep:</b> students struggle to rest — daily check-ins build the habit.</span></div>
+        <div class="item"><span class="dot"></span><span><b>Inspiration:</b> campus quotes work — Time.AI gives you one every day.</span></div>
+      </div>
+    </section>
+
+    <footer class="credit">
+      Built by students, for students — FGCU social entrepreneurship.<br>
+      <a href="#" id="feedback-link">Tell us what to fix →</a>
+    </footer>
+  </main>
+
+  <!-- ============ PROFILE ============ -->
+  <main class="screen" data-screen="profile">
+    <div class="topbar">
+      <div class="eyebrow">You</div>
+      <h1>Profile</h1>
+    </div>
+
+    <section class="profile-card">
+      <div class="avatar" id="avatar-initials">KC</div>
+      <div class="profile-name">Kevin C.</div>
+      <div class="profile-sub">FGCU · Social Entrepreneurship</div>
+      <div class="profile-stats">
+        <div class="stat"><span class="n" id="p-tasks">0</span><span class="l">Tasks</span></div>
+        <div class="stat"><span class="n" id="p-focus">0</span><span class="l">Sessions</span></div>
+        <div class="stat"><span class="n" id="p-sleep">0</span><span class="l">Streak</span></div>
+      </div>
+      <button class="btn btn-ghost btn-block" style="margin-top:16px" id="edit-profile-btn">Edit profile</button>
+    </section>
+
+    <section>
+      <div class="card-head"><h2>🏅 Badges</h2></div>
+      <p class="sub">Earned by actually using the app.</p>
+      <div class="badge-row" id="badge-row"></div>
+    </section>
+
+    <section>
+      <div class="card-head"><h2>👥 The team</h2></div>
+      <div class="team-list">
+        <div class="team-row"><span class="team-avatar" style="background:#e2572b">SS</span><span>Seth Stewart<small>Co-founder</small></span></div>
+        <div class="team-row"><span class="team-avatar" style="background:#2f7d4f">KD</span><span>Kaleb Davis<small>Co-founder</small></span></div>
+        <div class="team-row"><span class="team-avatar" style="background:#d99a2b">BN</span><span>Brady N.<small>Co-founder</small></span></div>
+        <div class="team-row"><span class="team-avatar" style="background:#2b3a67">KC</span><span>Kevin C.<small>Co-founder</small></span></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ SETTINGS ============ -->
+  <main class="screen" data-screen="settings">
+    <div class="topbar">
+      <div class="eyebrow">Preferences</div>
+      <h1>Settings</h1>
+    </div>
+
+    <section>
+      <div class="card-head"><h2>🔔 Preferences</h2></div>
+      <div class="row-list">
+        <div class="setting-row">
+          <span class="ico">🔔</span>
+          <span class="txt"><b>Notifications</b><small>Nudges for focus &amp; sleep check-ins</small></span>
+          <label class="switch"><input type="checkbox" id="set-notif"><span class="track"></span><span class="knob"></span></label>
+        </div>
+        <div class="setting-row">
+          <span class="ico">🔊</span>
+          <span class="txt"><b>Sound</b><small>Chime when a focus session ends</small></span>
+          <label class="switch"><input type="checkbox" id="set-sound"><span class="track"></span><span class="knob"></span></label>
+        </div>
+        <div class="setting-row">
+          <span class="ico">🌙</span>
+          <span class="txt"><b>Appearance</b><small>Dark — always on</small></span>
+          <label class="switch"><input type="checkbox" checked disabled><span class="track"></span><span class="knob"></span></label>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card-head"><h2>⏳ Focus length</h2></div>
+      <p class="sub">MVP default. Custom lengths coming soon.</p>
+      <div class="row-list">
+        <button class="setting-row" id="set-focus-len" style="width:100%; text-align:left; border:none; background:none; cursor:pointer;">
+          <span class="ico">⏱️</span>
+          <span class="txt"><b>Session length</b><small>25 minutes</small></span>
+          <span class="chev">›</span>
+        </button>
+      </div>
+    </section>
+
+    <section>
+      <div class="card-head"><h2>🗂️ Data</h2></div>
+      <div class="row-list">
+        <button class="setting-row" id="set-export" style="width:100%; text-align:left; border:none; background:none; cursor:pointer;">
+          <span class="ico">📤</span>
+          <span class="txt"><b>Export my data</b><small>Coming soon</small></span>
+          <span class="chev">›</span>
+        </button>
+      </div>
+      <button class="btn btn-danger btn-block" style="margin-top:12px" id="set-reset">Reset today’s data</button>
+    </section>
+
+    <section>
+      <div class="card-head"><h2>ℹ️ About</h2></div>
+      <div class="row-list">
+        <a class="setting-row" href="#" id="feedback-link-2" style="text-decoration:none; color:inherit;">
+          <span class="ico">💬</span>
+          <span class="txt"><b>Send feedback</b><small>Help us improve the pilot</small></span>
+          <span class="chev">›</span>
+        </a>
+        <div class="setting-row">
+          <span class="ico">🏷️</span>
+          <span class="txt"><b>Version</b><small>Time.AI MVP · v1.0</small></span>
+        </div>
+      </div>
+      <button class="btn btn-ghost btn-block" style="margin-top:12px" id="set-signout">Sign out</button>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- ============ TAB BAR ============ -->
+  <nav class="tabbar">
+    <button class="tab active" data-tab="home"><span class="tab-ico">🏠</span><span class="tab-lbl">Home</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="sleep"><span class="tab-ico">🌙</span><span class="tab-lbl">Sleep</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="progress"><span class="tab-ico">📈</span><span class="tab-lbl">Progress</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="profile"><span class="tab-ico">👤</span><span class="tab-lbl">Profile</span><span class="tab-dot"></span></button>
+    <button class="tab" data-tab="settings"><span class="tab-ico">⚙️</span><span class="tab-lbl">Settings</span><span class="tab-dot"></span></button>
+  </nav>
+</div>
+</div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ---------- navigation ---------- */
+  const shell = document.getElementById('shell');
+  const screens = [...document.querySelectorAll('.screen')];
+  const tabs = [...document.querySelectorAll('.tab')];
+  function showScreen(name) {
+    screens.forEach(s => s.classList.toggle('active', s.dataset.screen === name));
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+    const active = screens.find(s => s.dataset.screen === name);
+    if (active) active.scrollTop = 0;
+  }
+  tabs.forEach(t => t.addEventListener('click', () => showScreen(t.dataset.tab)));
+
+  /* ---------- toast ---------- */
+  const toastEl = document.getElementById('toast');
+  let toastTimer = null;
+  function toast(msg) {
+    clearTimeout(toastTimer);
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+  }
+
+  /* ---------- quotes: one per day ---------- */
+  const QUOTES = [
+    ["You don’t need more time, you need fewer priorities.", "Unknown"],
+    ["How we spend our days is how we spend our lives.", "Annie Dillard"],
+    ["Done is better than perfect.", "Sheryl Sandberg"],
+    ["The secret of getting ahead is getting started.", "Mark Twain"],
+    ["It always seems impossible until it’s done.", "Nelson Mandela"],
+    ["Focus on being productive instead of busy.", "Tim Ferriss"],
+    ["Lost time is never found again.", "Benjamin Franklin"],
+    ["Action is the foundational key to all success.", "Pablo Picasso"],
+    ["You may delay, but time will not.", "Benjamin Franklin"],
+    ["Little by little, a little becomes a lot.", "Tanzanian proverb"],
+    ["The best way out is always through.", "Robert Frost"],
+    ["Discipline is choosing what you want most over what you want now.", "Abraham Lincoln (attr.)"],
+    ["Start where you are. Use what you have. Do what you can.", "Arthur Ashe"],
+    ["A year from now you may wish you had started today.", "Karen Lamb"],
+    ["Don’t count the days, make the days count.", "Muhammad Ali"],
+    ["Well begun is half done.", "Aristotle"],
+    ["Amateurs sit and wait for inspiration. The rest of us get up and go to work.", "Stephen King"],
+    ["Nothing will work unless you do.", "Maya Angelou"],
+    ["The way to get started is to quit talking and begin doing.", "Walt Disney"],
+    ["Either you run the day or the day runs you.", "Jim Rohn"],
+    ["Success is the sum of small efforts, repeated day in and day out.", "Robert Collier"],
+    ["What you do today can improve all your tomorrows.", "Ralph Marston"],
+    ["Sleep is the best meditation.", "Dalai Lama"],
+    ["Simplicity boils down to two steps: identify the essential, eliminate the rest.", "Leo Babauta"],
+    ["It is not enough to be busy; so are the ants. What are we busy about?", "Henry David Thoreau"],
+    ["Motivation gets you going. Habit keeps you going.", "Jim Ryun"],
+    ["If you get tired, learn to rest, not to quit.", "Banksy"],
+    ["Someday is not a day of the week.", "Janet Dailey"],
+    ["Great things are done by a series of small things brought together.", "Vincent van Gogh"],
+    ["Do the hard thing first. The rest of the day is a victory lap.", "Unknown"]
+  ];
+
+  const FOCUS_MINUTES = 25;
+  const STORE_KEY = 'top3';
+  const CONFETTI_COLORS = ['#e2572b', '#2f7d4f', '#d99a2b', '#2b3a67', '#f0a58a'];
+
+  /* ---------- state ---------- */
+  function load() {
+    try { return JSON.parse(localStorage.getItem(STORE_KEY)) || { days: {} }; }
+    catch { return { days: {} }; }
+  }
+  function save() { localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+
+  function dateKey(d) {
+    const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+  const state = load();
+  if (!state.settings) state.settings = { notifications: true, sound: true };
+  const todayKey = dateKey(new Date());
+  if (!state.days[todayKey]) state.days[todayKey] = { tasks: [], focus: 0, sleep: null, blocks: [] };
+  const today = state.days[todayKey];
+  if (!today.blocks) today.blocks = [];
+
+  /* ---------- home header ---------- */
+  const now = new Date();
+  document.getElementById('dateline').textContent =
+    now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+  const h = now.getHours();
+  document.getElementById('greeting').textContent =
+    h < 12 ? 'Morning. Pick your three.' : h < 18 ? 'Afternoon. Still just three.' : 'Evening. Finish strong.';
+
+  const dayNum = Math.floor(now.getTime() / 86400000);
+  const [qt, qa] = QUOTES[dayNum % QUOTES.length];
+  document.getElementById('quote-text').textContent = '“' + qt + '”';
+  document.getElementById('quote-author').textContent = '— ' + qa;
+
+  /* ---------- confetti ---------- */
+  function confetti(n) {
+    for (let i = 0; i < n; i++) {
+      const p = document.createElement('div');
+      p.className = 'confetti';
+      p.style.left = Math.floor((i / n) * 100) + '%';
+      p.style.background = CONFETTI_COLORS[i % CONFETTI_COLORS.length];
+      p.style.animationDuration = (1.4 + (i % 5) * 0.22) + 's';
+      p.style.animationDelay = ((i % 7) * 0.06) + 's';
+      shell.appendChild(p);
+      setTimeout(() => p.remove(), 3200);
+    }
+  }
+
+  /* ---------- tasks ---------- */
+  const listEl = document.getElementById('task-list');
+  const formEl = document.getElementById('add-form');
+  const inputEl = document.getElementById('task-input');
+  const slotsEl = document.getElementById('slots');
+  const noteEl = document.getElementById('full-note');
+  const pillEl = document.getElementById('task-pill');
+  const tasksEmpty = document.getElementById('tasks-empty');
+
+  function renderTasks() {
+    listEl.innerHTML = '';
+    tasksEmpty.hidden = today.tasks.length > 0;
+    today.tasks.forEach((t, i) => {
+      const li = document.createElement('li');
+      if (t.done) li.classList.add('done');
+
+      const tick = document.createElement('button');
+      tick.className = 'tick';
+      tick.textContent = '✓';
+      tick.setAttribute('aria-label', t.done ? 'Mark not done' : 'Mark done');
+      tick.onclick = () => {
+        t.done = !t.done;
+        save(); renderTasks(); renderStats(); renderFocusSuggest(); renderProfile();
+        if (t.done && today.tasks.length === 3 && today.tasks.every(x => x.done)) confetti(48);
+      };
+
+      const span = document.createElement('span');
+      span.className = 'task-text';
+      span.textContent = t.text;
+
+      li.append(tick, span);
+
+      if (!t.done) {
+        const sched = document.createElement('button');
+        sched.className = 'icon-btn';
+        sched.textContent = '🕐';
+        sched.setAttribute('aria-label', 'Schedule this task');
+        sched.onclick = () => {
+          blockText.value = t.text;
+          blockTime.focus();
+          blockForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        };
+        li.appendChild(sched);
+      }
+
+      const del = document.createElement('button');
+      del.className = 'icon-btn del';
+      del.textContent = '×';
+      del.setAttribute('aria-label', 'Remove task');
+      del.onclick = () => { today.tasks.splice(i, 1); save(); renderTasks(); renderStats(); renderFocusSuggest(); renderProfile(); };
+      li.appendChild(del);
+
+      listEl.appendChild(li);
+    });
+
+    slotsEl.innerHTML = '';
+    for (let i = 0; i < 3; i++) {
+      const s = document.createElement('div');
+      s.className = 'slot';
+      if (today.tasks[i]) s.classList.add(today.tasks[i].done ? 'done' : 'filled');
+      slotsEl.appendChild(s);
+    }
+
+    const doneCount = today.tasks.filter(t => t.done).length;
+    pillEl.textContent = doneCount + ' / 3';
+    pillEl.classList.toggle('complete', doneCount === 3);
+
+    const full = today.tasks.length >= 3;
+    formEl.hidden = full;
+    const allDone = full && today.tasks.every(t => t.done);
+    noteEl.hidden = !full;
+    if (full) {
+      noteEl.className = 'full-note' + (allDone ? ' all-done' : '');
+      noteEl.textContent = allDone
+        ? '🎉 All three done. The day is yours.'
+        : 'That’s your three. Everything else can wait until tomorrow.';
+    }
+  }
+
+  formEl.addEventListener('submit', e => {
+    e.preventDefault();
+    const text = inputEl.value.trim();
+    if (!text || today.tasks.length >= 3) return;
+    today.tasks.push({ text, done: false });
+    inputEl.value = '';
+    save(); renderTasks(); renderStats(); renderFocusSuggest(); renderProfile();
+  });
+
+  /* ---------- time blocks ---------- */
+  const blockList = document.getElementById('block-list');
+  const blockForm = document.getElementById('block-form');
+  const blockTime = document.getElementById('block-time');
+  const blockText = document.getElementById('block-text');
+  const blocksEmpty = document.getElementById('blocks-empty');
+  const blockPill = document.getElementById('block-pill');
+
+  function fmtTime(hhmm) {
+    const [hh, mm] = hhmm.split(':').map(Number);
+    const ampm = hh < 12 ? 'AM' : 'PM';
+    const h12 = hh % 12 || 12;
+    return h12 + ':' + String(mm).padStart(2, '0') + ' ' + ampm;
+  }
+  function renderBlocks() {
+    today.blocks.sort((a, b) => a.time.localeCompare(b.time));
+    blockList.innerHTML = '';
+    blocksEmpty.hidden = today.blocks.length > 0;
+    blockPill.hidden = today.blocks.length === 0;
+    blockPill.textContent = today.blocks.length + ' block' + (today.blocks.length === 1 ? '' : 's');
+
+    const nowD = new Date();
+    const nowMin = nowD.getHours() * 60 + nowD.getMinutes();
+    let currentIdx = -1;
+    today.blocks.forEach((b, i) => {
+      const [hh, mm] = b.time.split(':').map(Number);
+      if (hh * 60 + mm <= nowMin) currentIdx = i;
+    });
+
+    today.blocks.forEach((b, i) => {
+      const li = document.createElement('li');
+      if (i < currentIdx) li.classList.add('past');
+      if (i === currentIdx) li.classList.add('now');
+
+      const time = document.createElement('span');
+      time.className = 'block-time';
+      time.textContent = fmtTime(b.time);
+
+      const text = document.createElement('span');
+      text.className = 'block-text';
+      text.textContent = b.text;
+
+      li.append(time, text);
+
+      if (i === currentIdx) {
+        const tag = document.createElement('span');
+        tag.className = 'now-tag';
+        tag.textContent = 'Now';
+        li.appendChild(tag);
+      }
+
+      const del = document.createElement('button');
+      del.className = 'icon-btn del';
+      del.textContent = '×';
+      del.setAttribute('aria-label', 'Remove block');
+      del.onclick = () => { today.blocks.splice(i, 1); save(); renderBlocks(); };
+      li.appendChild(del);
+
+      blockList.appendChild(li);
+    });
+  }
+  blockForm.addEventListener('submit', e => {
+    e.preventDefault();
+    if (!blockTime.value || !blockText.value.trim()) return;
+    today.blocks.push({ time: blockTime.value, text: blockText.value.trim() });
+    blockText.value = '';
+    save(); renderBlocks();
+  });
+  setInterval(renderBlocks, 60000);
+
+  /* ---------- focus timer ---------- */
+  const timerEl = document.getElementById('timer');
+  const timerLabel = document.getElementById('timer-label');
+  const focusBtn = document.getElementById('focus-btn');
+  const resetBtn = document.getElementById('focus-reset');
+  const countEl = document.getElementById('focus-count');
+  const suggestEl = document.getElementById('focus-suggest');
+  const ringBar = document.getElementById('ring-bar');
+  const RING_C = 2 * Math.PI * 80;
+  ringBar.style.strokeDasharray = RING_C;
+  ringBar.style.strokeDashoffset = 0;
+  const TOTAL_MS = FOCUS_MINUTES * 60000;
+  let tickId = null;
+
+  function fmt(ms) {
+    const s = Math.max(0, Math.round(ms / 1000));
+    return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+  }
+  function setRing(leftMs) { ringBar.style.strokeDashoffset = RING_C * (1 - leftMs / TOTAL_MS); }
+  function renderFocusSuggest() {
+    const next = today.tasks.find(t => !t.done);
+    suggestEl.hidden = !next;
+    if (next) { suggestEl.innerHTML = 'One task: <b></b>'; suggestEl.querySelector('b').textContent = next.text; }
+  }
+  function renderFocusIdle() {
+    timerEl.textContent = fmt(TOTAL_MS);
+    timerEl.classList.remove('running');
+    timerLabel.textContent = 'ready';
+    focusBtn.textContent = 'Start focus';
+    focusBtn.classList.remove('going');
+    resetBtn.hidden = true;
+    setRing(TOTAL_MS);
+    countEl.textContent = today.focus;
+  }
+  function renderFocusRunning() {
+    timerEl.classList.add('running');
+    timerLabel.textContent = 'focusing';
+    focusBtn.textContent = 'Focusing…';
+    focusBtn.classList.add('going');
+    resetBtn.hidden = false;
+  }
+  function completeFocus(dayKey) {
+    const day = state.days[dayKey] || state.days[todayKey];
+    day.focus = (day.focus || 0) + 1;
+    state.focusRun = null;
+    save(); renderStats(); renderFocusIdle(); renderProfile();
+    timerEl.textContent = 'Done ✓';
+    timerLabel.textContent = 'nice work';
+    confetti(24);
+    if (navigator.vibrate) navigator.vibrate(200);
+  }
+  function tick() {
+    if (!state.focusRun) return;
+    const left = state.focusRun.endAt - Date.now();
+    if (left <= 0) { clearInterval(tickId); tickId = null; completeFocus(state.focusRun.day); return; }
+    timerEl.textContent = fmt(left);
+    setRing(left);
+  }
+  focusBtn.addEventListener('click', () => {
+    if (state.focusRun) return;
+    state.focusRun = { endAt: Date.now() + TOTAL_MS, day: todayKey };
+    save(); renderFocusRunning(); tick();
+    tickId = setInterval(tick, 250);
+  });
+  resetBtn.addEventListener('click', () => {
+    clearInterval(tickId); tickId = null;
+    state.focusRun = null;
+    save(); renderFocusIdle();
+  });
+  function resumeFocus() {
+    if (!state.focusRun) { renderFocusIdle(); return; }
+    if (state.focusRun.endAt <= Date.now()) { completeFocus(state.focusRun.day); }
+    else { renderFocusRunning(); tick(); tickId = setInterval(tick, 250); }
+  }
+
+  /* ---------- sleep ---------- */
+  const sleepRow = document.getElementById('sleep-row');
+  const sleepAnswer = document.getElementById('sleep-answer');
+  const sleepMsg = document.getElementById('sleep-msg');
+  const sleepHeroMoon = document.getElementById('sleep-hero-moon');
+
+  function renderSleep() {
+    const answered = today.sleep !== null && today.sleep !== undefined;
+    sleepRow.hidden = answered;
+    sleepAnswer.hidden = !answered;
+    sleepHeroMoon.style.opacity = today.sleep === true ? '1' : today.sleep === false ? '.35' : '.7';
+    if (answered) {
+      sleepMsg.textContent = today.sleep
+        ? '😌 Logged. Rested brains plan better — see you tomorrow.'
+        : '🥱 Logged. Tonight, the phone charges across the room.';
+    }
+  }
+  document.getElementById('sleep-yes').onclick = () => { today.sleep = true; save(); renderSleep(); renderStats(); };
+  document.getElementById('sleep-no').onclick = () => { today.sleep = false; save(); renderSleep(); renderStats(); };
+  document.getElementById('sleep-undo').onclick = () => { today.sleep = null; save(); renderSleep(); renderStats(); };
+
+  /* ---------- week + stats (shared by Progress + Sleep screens) ---------- */
+  const weekEl = document.getElementById('week');
+  const sleepWeekEl = document.getElementById('sleep-week');
+
+  function buildWeekCol(i, d) {
+    const key = dateKey(d);
+    const day = state.days[key];
+    const done = day ? day.tasks.filter(t => t.done).length : 0;
+    const focus = day ? (day.focus || 0) : 0;
+
+    const col = document.createElement('div');
+    col.className = 'day-col' + (i === 0 ? ' today' : '');
+
+    const letter = document.createElement('span');
+    letter.className = 'day-letter';
+    letter.textContent = d.toLocaleDateString(undefined, { weekday: 'narrow' });
+    col.appendChild(letter);
+
+    const pips = document.createElement('div');
+    pips.className = 'pips';
+    for (let p = 0; p < 3; p++) {
+      const pip = document.createElement('div');
+      pip.className = 'pip' + (p < done ? ' on' : '');
+      pips.appendChild(pip);
+    }
+    col.appendChild(pips);
+
+    const dots = document.createElement('div');
+    dots.className = 'focus-dots';
+    for (let f = 0; f < Math.min(focus, 4); f++) {
+      const dot = document.createElement('div');
+      dot.className = 'fdot';
+      dots.appendChild(dot);
+    }
+    col.appendChild(dots);
+
+    const moon = document.createElement('span');
+    moon.className = 'moon' + (day && day.sleep === true ? ' on' : '');
+    moon.textContent = '🌙';
+    col.appendChild(moon);
+
+    return { col, done, focus, day };
+  }
+
+  function renderStats() {
+    let tasksDone = 0, focusTotal = 0;
+    weekEl.innerHTML = '';
+    sleepWeekEl.innerHTML = '';
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(); d.setDate(d.getDate() - i);
+      const built = buildWeekCol(i, d);
+      tasksDone += built.done;
+      focusTotal += built.focus;
+      weekEl.appendChild(built.col);
+      sleepWeekEl.appendChild(built.col.cloneNode(true));
+    }
+
+    let streak = 0;
+    const start = new Date();
+    if (today.sleep !== true) start.setDate(start.getDate() - 1);
+    for (let i = 0; i < 365; i++) {
+      const d = new Date(start); d.setDate(start.getDate() - i);
+      const day = state.days[dateKey(d)];
+      if (day && day.sleep === true) streak++;
+      else break;
+    }
+    if (today.sleep === true && streak === 0) streak = 1;
+
+    document.getElementById('stat-tasks').textContent = tasksDone;
+    document.getElementById('stat-focus').textContent = focusTotal;
+    document.getElementById('stat-sleep').textContent = streak;
+    document.getElementById('sleep-streak-num').textContent = streak;
+
+    renderProfile(tasksDone, focusTotal, streak);
+  }
+
+  /* ---------- profile ---------- */
+  function renderProfile(tasksDone, focusTotal, streak) {
+    if (tasksDone === undefined) {
+      // recompute quickly for calls that don't have fresh numbers
+      tasksDone = +document.getElementById('stat-tasks').textContent || 0;
+      focusTotal = +document.getElementById('stat-focus').textContent || 0;
+      streak = +document.getElementById('stat-sleep').textContent || 0;
+    }
+    document.getElementById('p-tasks').textContent = tasksDone;
+    document.getElementById('p-focus').textContent = focusTotal;
+    document.getElementById('p-sleep').textContent = streak;
+
+    const badges = [
+      { on: tasksDone >= 1, label: '🎯 First task' },
+      { on: focusTotal >= 1, label: '⏳ First focus' },
+      { on: streak >= 1, label: '🌙 Sleep logger' },
+      { on: today.tasks.length === 3 && today.tasks.every(t => t.done), label: '✅ Top 3 clear' },
+      { on: focusTotal >= 3, label: '🔥 3 sessions' },
+      { on: streak >= 3, label: '💤 3-night streak' },
+    ];
+    const row = document.getElementById('badge-row');
+    row.innerHTML = '';
+    badges.forEach(b => {
+      const el = document.createElement('span');
+      el.className = 'badge' + (b.on ? ' on' : '');
+      el.textContent = b.label;
+      row.appendChild(el);
+    });
+  }
+
+  /* ---------- AI assistant ---------- */
+  const chatEl = document.getElementById('chat');
+  const chatForm = document.getElementById('chat-form');
+  const chatInput = document.getElementById('chat-input');
+  const chipsEl = document.getElementById('chips');
+
+  const GREETING = 'Hey! I’m your time-management coach. 👋 Tell me everything on your plate today — classes, assignments, errands, all of it — and I’ll help you pick the <b>3 that actually matter</b>. Or ask me for a tip.';
+  const STARTERS = ['Help me pick my 3', 'I’m overwhelmed', 'How do I stop procrastinating?', 'Plan my day'];
+
+  const PLAN_MSG = 'Here’s a simple frame that works for most students:\n\n☀️  Morning — your hardest task first, while your brain is fresh\n🍽️  Midday — classes + a real lunch away from screens\n📚  Afternoon — one 25-min focus block on task #2\n🌙  Evening — finish task #3, then actually stop\n\nAdd real times in “Today’s plan” and I’ll flag where you should be right now.';
+
+  const COACH = [
+    [/procrastinat|can.?t start|putting off|avoid|keep delaying/,
+      'Procrastination is usually a task that feels too big. Shrink it: what’s the <b>2-minute first step</b>? Open the doc. Write one sentence. Starting is the hard part — momentum does the rest.'],
+    [/overwhelm|stress|too much|behind|anxious|panic|drowning|so much/,
+      'When everything feels urgent, nothing gets done. Dump it all here in one message (separate with commas) and I’ll cut it down to just <b>3</b>. You can only do 3 things well in a day anyway.'],
+    [/focus|concentrat|distract|phone|social media|tiktok|instagram|scroll/,
+      'Put your phone in <b>another room</b> — not face-down, another room. Then run one 25-minute focus session. One real block beats three hours of half-studying.'],
+    [/sleep|tired|exhaust|no energy|stay up|all.?nighter|can.?t wake/,
+      'Time management starts the night before. A tired brain plans badly and works slower. Aim for 7+ hours and log it on the Sleep tab to build a streak.'],
+    [/motivat|lazy|don.?t feel|don.?t want|hate|bored|stuck/,
+      'Motivation follows action, not the other way around. Don’t wait to feel like it — just start your #1 task for 5 minutes. Almost every time, you’ll keep going once you’ve begun.'],
+    [/plan|schedule|organi|structure|map out/, PLAN_MSG],
+  ];
+
+  const HIGH = ['due','today','tonight','tomorrow','exam','test','quiz','midterm','final','deadline','submit','assignment','paper','essay','project','presentation','study','homework','lab','report','application','interview','apply','register','monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+  const LOW = ['laundry','clean','dishes','groceries','shop','gym','workout','netflix','game','gaming','nap','scroll','instagram','tiktok','relax','hang out','party','watch','snack'];
+
+  function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function scrollChat() { chatEl.scrollTop = chatEl.scrollHeight; }
+  function addBubble(who) { const d = document.createElement('div'); d.className = 'msg ' + who; chatEl.appendChild(d); scrollChat(); return d; }
+  function addBot(html) { const d = addBubble('bot'); d.innerHTML = html; scrollChat(); return d; }
+  function addUser(text) { const d = addBubble('me'); d.textContent = text; scrollChat(); return d; }
+  function respond(fn, delay) {
+    const t = addBubble('bot');
+    t.innerHTML = '<span class="typing"><span></span><span></span><span></span></span>';
+    setTimeout(() => { t.remove(); fn(); }, delay || 600);
+  }
+  function renderChips(labels) {
+    chipsEl.innerHTML = '';
+    labels.forEach(label => {
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.textContent = label;
+      b.onclick = () => handleUser(label);
+      chipsEl.appendChild(b);
+    });
+  }
+  const resetChips = () => renderChips(STARTERS);
+
+  function splitItems(text) {
+    return text.split(/,|;|\band\b|\n|•|\. /i)
+      .map(s => s.trim().replace(/^[-*\d.)\s]+/, ''))
+      .filter(s => s.length > 1 && s.length < 70);
+  }
+  function scoreItem(item) {
+    const l = item.toLowerCase();
+    let score = 0;
+    HIGH.forEach(k => { if (l.includes(k)) score += 3; });
+    LOW.forEach(k => { if (l.includes(k)) score -= 2; });
+    if (/\b(today|tonight|due)\b/.test(l)) score += 2;
+    return score;
+  }
+  const tidy = s => s.charAt(0).toUpperCase() + s.slice(1);
+
+  function suggestTop3(items) {
+    const ranked = items.map(t => ({ t: tidy(t), s: scoreItem(t) })).sort((a, b) => b.s - a.s);
+    const top = ranked.slice(0, 3).map(x => x.t);
+    let html = 'Out of everything you listed, these three would move the needle most today:<ul class="suggest-list">';
+    top.forEach((t, i) => { html += '<li><span class="rank">' + (i + 1) + '</span>' + escapeHtml(t) + '</li>'; });
+    html += '</ul>';
+    html += ranked.length > 3 ? 'The rest can wait — that’s the whole point. 🙂' : 'Lock these in and ignore everything else.';
+    addBot(html);
+    offerApply(top);
+  }
+  function offerApply(top) {
+    const slots = 3 - today.tasks.length;
+    if (slots <= 0) {
+      respond(() => { addBot('Your Top 3 is already full for today. If one of these matters more, swap it in on the list above.'); resetChips(); }, 450);
+      return;
+    }
+    const toAdd = top.slice(0, slots);
+    chipsEl.innerHTML = '';
+    const chip = document.createElement('button');
+    chip.className = 'chip apply';
+    chip.textContent = '➕ Add ' + (toAdd.length === 1 ? 'this' : 'these ' + toAdd.length) + ' to my Top 3';
+    chip.onclick = () => {
+      toAdd.forEach(t => { if (today.tasks.length < 3) today.tasks.push({ text: t, done: false }); });
+      save(); renderTasks(); renderStats(); renderFocusSuggest(); renderProfile();
+      respond(() => { addBot('Done — they’re in your Top 3. 🎯 Now close everything else and start with #1.'); resetChips(); }, 400);
+    };
+    chipsEl.appendChild(chip);
+  }
+
+  function handleUser(raw) {
+    const text = (raw || '').trim();
+    if (!text) return;
+    addUser(text);
+    chatInput.value = '';
+    const l = text.toLowerCase();
+    const items = splitItems(text);
+
+    if (/^(hi|hey|hello|yo|sup|good morning|good evening)\b/.test(l) && items.length <= 1) {
+      respond(() => { addBot(GREETING); resetChips(); }); return;
+    }
+    if (/\bthank/.test(l)) { respond(() => { addBot('Anytime. Now go knock out #1. 💪'); resetChips(); }); return; }
+
+    const wantsPick = /(pick|priorit|help me|what should i|top 3|top three|choose|decide|figure out)/.test(l);
+    if (items.length >= 2) { respond(() => suggestTop3(items), 750); return; }
+    if (wantsPick) {
+      respond(() => { addBot('Sure — list everything on your plate in one message (separate them with commas) and I’ll pick your 3.'); resetChips(); }); return;
+    }
+
+    for (const [re, msg] of COACH) {
+      if (re.test(l)) { respond(() => { addBot(msg); resetChips(); }); return; }
+    }
+
+    respond(() => { addBot('Tell me everything you need to get done today (separate with commas) and I’ll help you pick the 3 that matter — or ask for a tip on focus, sleep, procrastination, or feeling overwhelmed.'); resetChips(); });
+  }
+
+  chatForm.addEventListener('submit', e => { e.preventDefault(); handleUser(chatInput.value); });
+  addBot(GREETING);
+  resetChips();
+
+  /* ---------- settings ---------- */
+  const notifToggle = document.getElementById('set-notif');
+  const soundToggle = document.getElementById('set-sound');
+  notifToggle.checked = state.settings.notifications;
+  soundToggle.checked = state.settings.sound;
+  notifToggle.addEventListener('change', () => {
+    state.settings.notifications = notifToggle.checked; save();
+    toast(notifToggle.checked ? 'Notifications on' : 'Notifications off');
+  });
+  soundToggle.addEventListener('change', () => {
+    state.settings.sound = soundToggle.checked; save();
+    toast(soundToggle.checked ? 'Sound on' : 'Sound off');
+  });
+  document.getElementById('set-focus-len').addEventListener('click', () => toast('Custom lengths coming in v2 🚧'));
+  document.getElementById('set-export').addEventListener('click', () => toast('Export coming soon 📤'));
+  document.getElementById('set-signout').addEventListener('click', () => toast('This is a demo build — no account needed 🙂'));
+  document.getElementById('edit-profile-btn').addEventListener('click', () => toast('Profile editing coming soon ✏️'));
+  document.getElementById('set-reset').addEventListener('click', () => {
+    if (!confirm('Clear today’s tasks, plan, focus sessions, and sleep check-in?')) return;
+    state.days[todayKey] = { tasks: [], focus: 0, sleep: null, blocks: [] };
+    Object.assign(today, state.days[todayKey]);
+    state.focusRun = null;
+    save();
+    renderTasks(); renderBlocks(); renderFocusSuggest(); renderFocusIdle(); renderSleep(); renderStats();
+    toast('Today’s data reset ✅');
+  });
+
+  /* ---------- feedback links (replace # with your Google Form URL) ---------- */
+  const FEEDBACK_URL = '#';
+  document.getElementById('feedback-link').href = FEEDBACK_URL;
+  document.getElementById('feedback-link-2').href = FEEDBACK_URL;
+
+  renderTasks();
+  renderBlocks();
+  renderFocusSuggest();
+  resumeFocus();
+  renderSleep();
+  renderStats();
+})();
+</script>
+</body>
+</html>
