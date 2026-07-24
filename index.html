@@ -167,6 +167,26 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 .opp-meta{display:flex;gap:8px;margin-top:8px;font-size:10px;font-weight:600;color:var(--text-muted)}
 .opp-meta span{display:flex;align-items:center;gap:3px}
 .opp-featured{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);padding:3px 8px;border-radius:99px}
+.opp-card.sponsored{border:1.5px solid rgba(199,123,10,.3);background:linear-gradient(135deg,rgba(199,123,10,.04),rgba(199,123,10,.01))}
+.opp-sponsored-badge{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--gold),#d4940a);padding:3px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(199,123,10,.25)}
+.promote-cta{text-align:center;padding:20px 16px;background:linear-gradient(135deg,rgba(199,123,10,.06),rgba(199,123,10,.02));border:1.5px dashed rgba(199,123,10,.3);border-radius:var(--radius);margin-top:16px}
+.promote-cta h3{font-size:15px;font-weight:700;margin-bottom:4px}
+.promote-cta p{font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.5}
+.promote-cta .promote-btn{display:inline-block;font-size:12px;font-weight:700;color:var(--gold);background:var(--gold-soft);border:1.5px solid rgba(199,123,10,.25);border-radius:99px;padding:9px 20px;cursor:pointer;transition:transform .12s}
+.promote-cta .promote-btn:active{transform:scale(.95)}
+.verified-export{display:flex;align-items:center;gap:12px;padding:14px;background:linear-gradient(135deg,rgba(37,99,235,.06),rgba(37,99,235,.02));border:1.5px solid rgba(37,99,235,.2);border-radius:var(--radius);cursor:pointer;transition:transform .12s;margin-bottom:12px}
+.verified-export:active{transform:scale(.98)}
+.verified-export .ve-icon{flex:none;width:40px;height:40px;border-radius:12px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
+.verified-export .ve-text{flex:1}
+.verified-export .ve-text b{font-size:13px;font-weight:700;display:block}
+.verified-export .ve-text small{font-size:11px;color:var(--text-muted)}
+.partner-card{padding:16px;background:linear-gradient(135deg,rgba(16,185,129,.06),rgba(37,99,235,.04));border:1px solid rgba(16,185,129,.2);border-radius:var(--radius);margin-bottom:12px}
+.partner-card h3{font-size:14px;font-weight:700;margin-bottom:4px}
+.partner-card p{font-size:12px;color:var(--text-muted);line-height:1.5;margin-bottom:8px}
+.partner-card .partner-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.partner-card .ps{text-align:center;padding:8px 4px;background:var(--card);border-radius:var(--radius-sm)}
+.partner-card .ps .n{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;color:var(--green);display:block}
+.partner-card .ps .l{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text-muted)}
 .opp-action{flex:none;align-self:center}
 .opp-btn{font-size:12px;font-weight:700;color:var(--green);background:var(--green-soft);border:none;border-radius:10px;padding:8px 14px;cursor:pointer;white-space:nowrap;transition:transform .12s}
 .opp-btn:active{transform:scale(.95)}
@@ -621,6 +641,19 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
       <div class="pstat"><span class="n" id="p-streak" style="color:var(--orange)">0</span><span class="l">Streak</span></div>
     </div>
   </div>
+  <div class="verified-export" id="export-transcript">
+    <span class="ve-icon" data-icon="bolt"></span>
+    <div class="ve-text"><b>Export Verified Transcript</b><small>Share verified volunteer hours with employers</small></div>
+  </div>
+  <div class="partner-card">
+    <h3>Powered by FGCU Partnership</h3>
+    <p>Time.AI partners with universities to provide free volunteer tracking for students. Institutions get engagement analytics and verified service data.</p>
+    <div class="partner-stats">
+      <div class="ps"><span class="n" id="pc-students">847</span><span class="l">Students</span></div>
+      <div class="ps"><span class="n" id="pc-hours">12.4k</span><span class="l">Hours</span></div>
+      <div class="ps"><span class="n" id="pc-orgs">38</span><span class="l">Partners</span></div>
+    </div>
+  </div>
   <div class="card">
     <div class="card-head"><h2>Badges</h2></div>
     <div class="badge-grid" id="badge-grid"></div>
@@ -667,14 +700,14 @@ const IMPACT_RATE=33.49;
 const CONFETTI_COLORS=['#10b981','#3b82f6','#8b5cf6','#ec4899','#f59e0b'];
 
 const OPPORTUNITIES=[
-  {id:'hab-build',org:'Habitat for Humanity',title:'Home Build Volunteer',desc:'Help build affordable housing for families in need.',category:'community',estHours:4,location:'Fort Myers, FL',points:50,featured:true,url:'https://www.habitat.org',img:'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=260&fit=crop&q=70'},
+  {id:'hab-build',org:'Habitat for Humanity',title:'Home Build Volunteer',desc:'Help build affordable housing for families in need.',category:'community',estHours:4,location:'Fort Myers, FL',points:50,featured:true,sponsored:true,url:'https://www.habitat.org',img:'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=260&fit=crop&q=70'},
   {id:'food-bank',org:'Harry Chapin Food Bank',title:'Food Sorting & Distribution',desc:'Sort and distribute food to families facing hunger.',category:'community',estHours:3,location:'Fort Myers, FL',points:35,featured:false,url:'https://harrychapinfoodbank.org',img:'https://images.unsplash.com/photo-1488459716781-31db52582fe9?w=400&h=260&fit=crop&q=70'},
   {id:'beach-clean',org:'Keep Lee County Beautiful',title:'Beach Cleanup',desc:'Clean up local beaches and protect marine life.',category:'environment',estHours:2,location:'Fort Myers Beach',points:25,featured:false,url:'https://klcb.org',img:'https://images.unsplash.com/photo-1526951521990-620dc14c214b?w=400&h=260&fit=crop&q=70'},
-  {id:'tutor',org:'FGCU Learning Commons',title:'Peer Tutoring',desc:'Tutor fellow students in your area of expertise.',category:'education',estHours:2,location:'FGCU Campus',points:25,featured:true,url:'https://www.fgcu.edu',img:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=260&fit=crop&q=70'},
+  {id:'tutor',org:'FGCU Learning Commons',title:'Peer Tutoring',desc:'Tutor fellow students in your area of expertise.',category:'education',estHours:2,location:'FGCU Campus',points:25,featured:true,sponsored:true,url:'https://www.fgcu.edu',img:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=260&fit=crop&q=70'},
   {id:'animal-shelter',org:'Gulf Coast Humane Society',title:'Animal Care Assistant',desc:'Help care for shelter animals and assist with adoptions.',category:'animals',estHours:3,location:'Fort Myers, FL',points:35,featured:false,url:'https://www.gulfcoasthumanesociety.org',img:'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&h=260&fit=crop&q=70'},
   {id:'senior-visit',org:'Senior Friendship Centers',title:'Senior Companion Visit',desc:'Visit and spend time with elderly community members.',category:'health',estHours:2,location:'Fort Myers, FL',points:25,featured:false,url:'https://www.friendshipcenters.org',img:'https://images.unsplash.com/photo-1447005497901-b3e9ee359928?w=400&h=260&fit=crop&q=70'},
   {id:'campus-garden',org:'FGCU Sustainability',title:'Campus Community Garden',desc:'Help maintain the campus garden and grow fresh produce.',category:'environment',estHours:2,location:'FGCU Campus',points:25,featured:false,url:'https://www.fgcu.edu',img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=260&fit=crop&q=70'},
-  {id:'mentor-youth',org:'Big Brothers Big Sisters',title:'Youth Mentorship',desc:'Mentor local youth and make a lasting impact.',category:'education',estHours:3,location:'Lee County, FL',points:40,featured:true,url:'https://www.bbbs.org',img:'https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=260&fit=crop&q=70'},
+  {id:'mentor-youth',org:'Big Brothers Big Sisters',title:'Youth Mentorship',desc:'Mentor local youth and make a lasting impact.',category:'education',estHours:3,location:'Lee County, FL',points:40,featured:true,sponsored:true,url:'https://www.bbbs.org',img:'https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=260&fit=crop&q=70'},
   {id:'disaster-prep',org:'American Red Cross SWFL',title:'Disaster Preparedness',desc:'Help communities prepare for hurricane season.',category:'community',estHours:4,location:'Lee County, FL',points:50,featured:false,url:'https://www.redcross.org',img:'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&h=260&fit=crop&q=70'},
   {id:'health-clinic',org:'Neighborhood Health Clinic',title:'Health Clinic Volunteer',desc:'Assist at free health clinics serving uninsured patients.',category:'health',estHours:4,location:'Fort Myers, FL',points:50,featured:false,url:'https://neighborhoodhealthclinic.org',img:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=260&fit=crop&q=70'}
 ];
@@ -884,10 +917,10 @@ document.getElementById('qa-chat').addEventListener('click',()=>showScreen('chat
 /* opportunity card */
 function makeOppCard(opp,compact){
   const div=document.createElement('div');
-  div.className='opp-card';
+  div.className='opp-card'+(opp.sponsored?' sponsored':'');
   const signed=state.signups.includes(opp.id);
   div.innerHTML=
-    (opp.featured?'<span class="opp-featured">Featured</span>':'')+
+    (opp.sponsored?'<span class="opp-sponsored-badge">Sponsored</span>':opp.featured?'<span class="opp-featured">Featured</span>':'')+
     catTile(opp.category,opp.img)+
     '<div class="opp-info">'+
       '<div class="opp-org">'+esc(opp.org)+'</div>'+
@@ -938,9 +971,14 @@ function renderDiscover(){
   let opps=OPPORTUNITIES;
   if(currentCat!=='all')opps=opps.filter(o=>o.category===currentCat);
   if(searchVal)opps=opps.filter(o=>(o.title+o.org+o.desc).toLowerCase().includes(searchVal));
-  const sorted=[...opps.filter(o=>o.featured),...opps.filter(o=>!o.featured)];
+  const sorted=[...opps.filter(o=>o.sponsored),...opps.filter(o=>o.featured&&!o.sponsored),...opps.filter(o=>!o.featured&&!o.sponsored)];
   if(!sorted.length){listEl.innerHTML='<div class="empty-state">No opportunities found.</div>';return}
   sorted.forEach(o=>listEl.appendChild(makeOppCard(o,false)));
+  const cta=document.createElement('div');
+  cta.className='promote-cta';
+  cta.innerHTML='<h3>Promote Your Organization</h3><p>Reach hundreds of student volunteers. Sponsored listings appear first and get 3x more sign-ups.</p><button class="promote-btn">Learn More</button>';
+  cta.querySelector('.promote-btn').addEventListener('click',()=>toast('Contact partnerships@timeai.app'));
+  listEl.appendChild(cta);
 }
 document.getElementById('opp-search').addEventListener('input',renderDiscover);
 
@@ -1226,6 +1264,38 @@ function renderProfile(){
   BADGES.forEach(b=>{const el=document.createElement('span');el.className='badge'+(b.test(stats)?' earned':'');el.textContent=b.label;grid.appendChild(el)});
 }
 
+/* verified transcript export */
+document.getElementById('export-transcript').addEventListener('click',function(){
+  if(!state.user||!state.logs.length){toast('Log some hours first!');return}
+  const hrs=totalHours();const pts=totalPoints();const s=streak();
+  const opps=new Set(state.logs.filter(l=>l.oppId).map(l=>{const o=OPPORTUNITIES.find(x=>x.id===l.oppId);return o?o.title:'General'}));
+  let txt='VERIFIED VOLUNTEER TRANSCRIPT\n';
+  txt+='========================================\n\n';
+  txt+='Name: '+state.user.name+'\n';
+  txt+='Email: '+state.user.email+'\n';
+  txt+='University: '+state.user.university+'\n';
+  txt+='Generated: '+new Date().toLocaleDateString()+'\n\n';
+  txt+='SUMMARY\n';
+  txt+='Total Hours: '+hrs+'\n';
+  txt+='Total Points: '+pts+'\n';
+  txt+='Current Streak: '+s+' days\n';
+  txt+='Organizations: '+opps.size+'\n\n';
+  txt+='DETAILED LOG\n';
+  txt+='----------------------------------------\n';
+  state.logs.slice().sort((a,b)=>a.date.localeCompare(b.date)).forEach(l=>{
+    const o=OPPORTUNITIES.find(x=>x.id===l.oppId);
+    txt+=l.date+' | '+(o?o.title:'General volunteering')+' | '+l.hours+'h\n';
+  });
+  txt+='\n========================================\n';
+  txt+='Verified by Time.AI | FGCU\n';
+  txt+='Transcript ID: TAI-'+Date.now().toString(36).toUpperCase()+'\n';
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='TimeAI-Transcript-'+state.user.name.replace(/\s+/g,'-')+'.txt';
+  a.click();URL.revokeObjectURL(a.href);
+  toast('Transcript downloaded!');
+});
+
 /* settings */
 const notifToggle=document.getElementById('set-notif');
 const soundToggle=document.getElementById('set-sound');
@@ -1236,7 +1306,7 @@ soundToggle.addEventListener('change',()=>{state.settings.sound=soundToggle.chec
 document.getElementById('set-reset').addEventListener('click',()=>{if(!confirm('Reset all your data? This cannot be undone.'))return;localStorage.removeItem(STORE);location.reload()});
 
 /* init */
-function renderAll(){populateOppSelects();renderHome();renderDiscover();resumeExistingTimer();renderLogs();renderLeaderboard();renderHabits();renderSleep();renderProfile()}
+function renderAll(){populateOppSelects();renderHome();renderDiscover();resumeExistingTimer();renderLogs();renderLeaderboard();renderHabits();renderSleep();renderProfile();document.querySelectorAll('[data-icon]').forEach(el=>{if(el.innerHTML.trim()&&el.innerHTML.includes('<svg'))return;let sz=20;if(el.classList.contains('tab-ico'))sz=23;else if(el.classList.contains('search-icon')||el.classList.contains('s-icon')||el.classList.contains('ve-icon'))sz=16;el.innerHTML=icon(el.dataset.icon,sz)})}
 if(state.user)renderAll();
 
 })();
