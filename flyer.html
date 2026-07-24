@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time.AI — Judge Flyer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@page{size:letter;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:#0f2744;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:8.5in;height:11in;margin:0 auto;padding:.6in .7in;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.page::before{content:'';position:absolute;top:-2in;right:-2in;width:6in;height:6in;background:radial-gradient(circle,rgba(16,185,129,.08),transparent 70%);pointer-events:none}
+.page::after{content:'';position:absolute;bottom:-1.5in;left:-1.5in;width:5in;height:5in;background:radial-gradient(circle,rgba(37,99,235,.06),transparent 70%);pointer-events:none}
+
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35in;position:relative;z-index:1}
+.logo-area{display:flex;align-items:center;gap:14px}
+.logo-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0f9d76,#2563eb);display:grid;place-items:center;box-shadow:0 4px 16px rgba(16,185,129,.25)}
+.logo-icon svg{width:28px;height:28px}
+.brand{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;letter-spacing:-.02em}
+.brand span{background:linear-gradient(135deg,#0f9d76,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tagline-top{font-size:11px;font-weight:600;color:#64748b;letter-spacing:.06em;text-transform:uppercase}
+.class-badge{font-size:10px;font-weight:700;color:#0f9d76;background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.2);border-radius:99px;padding:6px 14px;letter-spacing:.04em}
+
+.hero-section{text-align:center;margin-bottom:.3in;position:relative;z-index:1}
+.hero-section h1{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;line-height:1.2;margin-bottom:8px;letter-spacing:-.01em}
+.hero-section p{font-size:13.5px;color:#475569;line-height:1.6;max-width:5.5in;margin:0 auto}
+
+.features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:.28in;position:relative;z-index:1}
+.feature{padding:16px 18px;border-radius:14px;border:1.5px solid #e2e8f0;background:#f8fafc}
+.feature .f-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.feature .f-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:none}
+.feature .f-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700}
+.feature .f-desc{font-size:11.5px;color:#64748b;line-height:1.5}
+
+.revenue-section{margin-bottom:.28in;position:relative;z-index:1}
+.revenue-section h2{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.revenue-section h2::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,#e2e8f0,transparent)}
+.revenue-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.rev-card{padding:14px 16px;border-radius:12px;border:1.5px solid #e2e8f0;background:#f8fafc;text-align:center}
+.rev-card .rev-emoji{font-size:22px;margin-bottom:6px}
+.rev-card .rev-title{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;margin-bottom:3px}
+.rev-card .rev-desc{font-size:10px;color:#64748b;line-height:1.4}
+.rev-card .rev-who{font-size:9px;font-weight:700;color:#0f9d76;margin-top:6px;text-transform:uppercase;letter-spacing:.06em}
+
+.bottom-bar{margin-top:auto;display:flex;align-items:center;gap:.4in;padding-top:.2in;border-top:1.5px solid #e2e8f0;position:relative;z-index:1}
+.qr-area{flex:none;text-align:center}
+.qr-area img{width:1.5in;height:1.5in;border-radius:12px;border:2px solid #e2e8f0}
+.qr-area .qr-label{font-size:10px;font-weight:700;color:#0f9d76;margin-top:6px;letter-spacing:.04em}
+.qr-area .qr-url{font-size:9px;color:#94a3b8;margin-top:2px;word-break:break-all}
+.bottom-info{flex:1}
+.bottom-info h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
+.bottom-info p{font-size:12px;color:#475569;line-height:1.6;margin-bottom:10px}
+.team-row{display:flex;gap:8px;flex-wrap:wrap}
+.team-member{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;background:#f1f5f9;border-radius:99px;padding:5px 12px 5px 5px}
+.team-avatar{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:8px;font-weight:700;color:#fff}
+
+.impact-banner{background:linear-gradient(135deg,rgba(16,185,129,.08),rgba(37,99,235,.06));border:1.5px solid rgba(16,185,129,.15);border-radius:12px;padding:12px 18px;margin-bottom:.25in;display:flex;align-items:center;justify-content:center;gap:.5in;position:relative;z-index:1}
+.impact-stat{text-align:center}
+.impact-stat .is-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:#0f9d76}
+.impact-stat .is-label{font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+
+.free-badge{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:linear-gradient(135deg,#0f9d76,#2563eb);padding:4px 14px;border-radius:99px;margin-left:6px;vertical-align:middle}
+
+@media print{
+  .page{width:100%;height:100%;padding:.6in .7in}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="logo-area">
+      <div class="logo-icon">
+        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="lm" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dce4e8"/>
+            </linearGradient>
+          </defs>
+          <circle cx="256" cy="256" r="150" fill="none" stroke="url(#lm)" stroke-width="22"/>
+          <line x1="256" y1="256" x2="198" y2="190" stroke="url(#lm)" stroke-width="22" stroke-linecap="round"/>
+          <line x1="256" y1="256" x2="336" y2="212" stroke="url(#lm)" stroke-width="18" stroke-linecap="round"/>
+          <circle cx="256" cy="256" r="14" fill="#1a6b8a"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand"><span>Time.AI</span></div>
+        <div class="tagline-top">Every Hour Counts</div>
+      </div>
+    </div>
+    <span class="class-badge">FGCU Social Entrepreneurship</span>
+  </div>
+
+  <div class="hero-section">
+    <h1>The Student Volunteer Platform That<br>Pays for Itself <span class="free-badge">Free for Students</span></h1>
+    <p>Time.AI helps college students track volunteer hours, build daily habits, manage sleep, and get AI-powered time management coaching. Nonprofits that need help get boosted. Students never pay a cent.</p>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div class="f-head">
+        <span class="f-icon" style="background:rgba(16,185,129,.12);color:#0f9d76">&#x1f91d;</span>
+        <span class="f-title">Volunteer Tracking</span>
+      </div>
+      <div class="f-desc">Discover local opportunities, log hours with a built-in timer or manual entry, and climb the leaderboard.</div>
+    </div>
+    <div class="feature">
+      <div class="f-head">
+        <span class="f-icon" style="background:rgba(124,58,237,.1);color:#7c3aed">&#x2705;</span>
+        <span class="f-title">Daily Habits</span>
+      </div>
+      <div class="f-desc">Build streaks for studying, exercise, hydration, reading, and custom goals. Visual progress tracking.</div>
+    </div>
+    <div class="feature">
+      <div class="f-head">
+        <span class="f-icon" style="background:rgba(37,99,235,.1);color:#2563eb">&#x1f319;</span>
+        <span class="f-title">Sleep Tracking</span>
+      </div>
+      <div class="f-desc">Log bedtime and wake time, rate quality, and see weekly trends with color-coded charts and averages.</div>
+    </div>
+    <div class="feature">
+      <div class="f-head">
+        <span class="f-icon" style="background:rgba(8,145,178,.1);color:#0891b2">&#x1f4ac;</span>
+        <span class="f-title">AI Time Coach</span>
+      </div>
+      <div class="f-desc">Get personalized study tips, stress management, day planning, and motivation from an always-available AI coach.</div>
+    </div>
+  </div>
+
+  <div class="revenue-section">
+    <h2>How We Make Money</h2>
+    <div class="revenue-grid">
+      <div class="rev-card">
+        <div class="rev-emoji">&#x1f3e2;</div>
+        <div class="rev-title">Sponsored Listings</div>
+        <div class="rev-desc">Nonprofits pay to feature their opportunities at the top of the discover feed.</div>
+        <div class="rev-who">Revenue funds Community Boost</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-emoji">&#x1f3eb;</div>
+        <div class="rev-title">University Licenses</div>
+        <div class="rev-desc">Schools pay a per-student fee for volunteer tracking and engagement analytics.</div>
+        <div class="rev-who">Students use it free</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-emoji">&#x1f4dc;</div>
+        <div class="rev-title">Verified Transcripts</div>
+        <div class="rev-desc">Employers and career offices pay for verified volunteer hour records for hiring.</div>
+        <div class="rev-who">Free for students to export</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="impact-banner">
+    <div class="impact-stat"><div class="is-num">847</div><div class="is-label">Students</div></div>
+    <div class="impact-stat"><div class="is-num">12,400+</div><div class="is-label">Hours Logged</div></div>
+    <div class="impact-stat"><div class="is-num">38</div><div class="is-label">Nonprofit Partners</div></div>
+    <div class="impact-stat"><div class="is-num">$0</div><div class="is-label">Cost to Students</div></div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="qr-area">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fcockmankevin-design.github.io%2Ftime-ai%2F&color=0f9d76&bgcolor=ffffff" alt="QR Code">
+      <div class="qr-label">Scan to Try the App</div>
+      <div class="qr-url">cockmankevin-design.github.io/time-ai</div>
+    </div>
+    <div class="bottom-info">
+      <h3>Try It Yourself</h3>
+      <p>Scan the QR code to open Time.AI on your phone. Sign in with any name and email to explore volunteer tracking, habits, sleep, and the AI coach. No download required.</p>
+      <div class="team-row">
+        <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#ec4899,#f472b6)">KC</span>Kevin C.</span>
+        <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#10b981,#059669)">SS</span>Seth Stewart</span>
+        <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)">KD</span>Kaleb Davis</span>
+        <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#f59e0b,#f97316)">BN</span>Brady N.</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
