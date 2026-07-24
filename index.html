@@ -13,13 +13,13 @@
 <style>
 :root {
   color-scheme: light;
-  --bg: #eef2f7;
-  --bg2: #e4e9f1;
-  --card: #ffffff;
-  --card-solid: #ffffff;
-  --card-hover: #f2f5fa;
-  --border: #e2e8f0;
-  --border-light: #cbd5e1;
+  --bg: #e2e8f0;
+  --bg2: #d6dee8;
+  --card: #f0f2f6;
+  --card-solid: #f0f2f6;
+  --card-hover: #e8ebf1;
+  --border: #cdd5e0;
+  --border-light: #b8c3d1;
   --text: #0f2744;
   --text-mid: #475569;
   --text-muted: #7c8aa0;
@@ -73,23 +73,31 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 .screen::-webkit-scrollbar{display:none}
 
 /* onboarding */
-.onboarding{position:absolute;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden}
-.onboarding::before{content:'';position:absolute;top:-40%;left:-20%;width:140%;height:80%;background:radial-gradient(ellipse,rgba(16,185,129,.08),transparent 70%);pointer-events:none}
-.onboarding::after{content:'';position:absolute;bottom:-20%;right:-30%;width:100%;height:60%;background:radial-gradient(ellipse,rgba(59,130,246,.06),transparent 70%);pointer-events:none}
-.onboard-inner{width:100%;max-width:300px;padding:0 20px;text-align:center;position:relative;z-index:1}
-.onboard-logo{width:72px;height:72px;border-radius:20px;background:var(--gradient-1);display:grid;place-items:center;margin:0 auto 20px;box-shadow:0 8px 32px var(--green-glow)}
-.onboard-logo svg{width:40px;height:40px}
-.onboard-brand{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;margin-bottom:6px;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.onboarding .subtitle{color:var(--text-muted);margin-bottom:32px;font-size:15px;line-height:1.6}
-.onboard-form{display:flex;flex-direction:column;gap:12px}
-.onboard-form input{width:100%;padding:14px 16px;background:var(--card);border:1.5px solid var(--border-light);border-radius:var(--radius-sm);color:var(--text);font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
-.onboard-form input:focus{border-color:var(--green);box-shadow:0 0 0 3px var(--green-soft)}
-.onboard-form input::placeholder{color:var(--text-muted)}
-.onboard-submit{width:100%;padding:15px;background:var(--gradient-1);color:#fff;border:none;border-radius:var(--radius-sm);font-weight:700;font-size:15px;cursor:pointer;margin-top:8px;box-shadow:0 4px 20px var(--green-glow);transition:transform .12s,box-shadow .12s}
+@property --glow-angle{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes glow-spin{0%{--glow-angle:0deg}100%{--glow-angle:360deg}}
+.onboarding{position:absolute;inset:0;z-index:100;display:flex;align-items:center;justify-content:center;background:#0e1420;overflow:hidden}
+.onboarding::before{content:'';position:absolute;top:-40%;left:-20%;width:140%;height:80%;background:radial-gradient(ellipse,rgba(16,185,129,.1),transparent 70%);pointer-events:none}
+.onboarding::after{content:'';position:absolute;bottom:-20%;right:-30%;width:100%;height:60%;background:radial-gradient(ellipse,rgba(37,99,235,.08),transparent 70%);pointer-events:none}
+.onboard-inner{width:100%;max-width:320px;padding:0 20px;text-align:center;position:relative;z-index:1}
+.glow-box{position:relative;width:100%;border-radius:20px;background:repeating-conic-gradient(from var(--glow-angle),#10b981 0%,#10b981 5%,transparent 5%,transparent 40%,#10b981 50%);animation:glow-spin 4s linear infinite;filter:drop-shadow(0 15px 50px rgba(0,0,0,.6));display:flex;justify-content:center;align-items:center;padding:4px}
+.glow-box::before{content:'';position:absolute;inset:0;border-radius:20px;background:repeating-conic-gradient(from var(--glow-angle),#2563eb 0%,#2563eb 5%,transparent 5%,transparent 40%,#2563eb 50%);animation:glow-spin 4s linear infinite;animation-delay:-1s;filter:drop-shadow(0 15px 50px rgba(0,0,0,.4))}
+.glow-box::after{content:'';position:absolute;inset:4px;background:#1a1f2e;border-radius:16px;border:6px solid #151925}
+.glow-box-inner{position:relative;z-index:1;width:100%;background:rgba(0,0,0,.2);border-radius:12px;padding:32px 24px 28px;box-shadow:inset 0 10px 20px rgba(0,0,0,.5);border-bottom:1px solid rgba(255,255,255,.08)}
+.onboard-logo{width:72px;height:72px;border-radius:18px;background:var(--gradient-1);display:grid;place-items:center;margin:0 auto 16px;box-shadow:0 6px 24px rgba(16,185,129,.3);overflow:hidden;padding:0}
+.onboard-logo svg{width:100%;height:100%;display:block}
+.onboard-brand{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-bottom:6px;background:var(--gradient-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.onboarding .subtitle{color:#8a95a8;margin-bottom:24px;font-size:14px;line-height:1.6}
+.onboard-form{display:flex;flex-direction:column;gap:10px}
+.onboard-form input{width:100%;padding:13px 16px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:var(--radius-sm);color:#e8ecf1;font-size:14px;outline:none;transition:border-color .2s,box-shadow .2s}
+.onboard-form input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(16,185,129,.2)}
+.onboard-form input::placeholder{color:#5a6578}
+.onboard-submit{width:100%;padding:14px;background:var(--gradient-1);color:#fff;border:none;border-radius:var(--radius-sm);font-weight:700;font-size:15px;cursor:pointer;margin-top:6px;box-shadow:0 4px 20px rgba(16,185,129,.3);transition:transform .12s,box-shadow .12s}
 .onboard-submit:active{transform:scale(.97)}
-.onboard-features{display:flex;justify-content:center;gap:20px;margin-top:28px}
-.onboard-feat{text-align:center;font-size:11px;color:var(--text-muted);font-weight:500}
-.onboard-feat .feat-icon{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;margin:0 auto 6px;font-size:18px}
+.onboard-note{font-size:10px;color:#5a6578;margin-top:10px;line-height:1.5}
+.onboard-features{display:flex;justify-content:center;gap:16px;margin-top:20px}
+.onboard-feat{text-align:center;font-size:10px;color:#8a95a8;font-weight:500}
+.onboard-feat .feat-icon{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;margin:0 auto 5px;font-size:16px}
+@media(prefers-reduced-motion:reduce){.glow-box,.glow-box::before{animation:none;background:var(--gradient-1)}}
 
 /* topbar */
 .topbar{margin-bottom:16px}
@@ -350,42 +358,44 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 <!-- ONBOARDING -->
 <div class="onboarding" id="onboarding" hidden>
   <div class="onboard-inner">
-    <div class="onboard-logo" style="background:none;padding:0;overflow:hidden">
-      <svg viewBox="0 0 512 512" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="lb" x1="0" y1="1" x2="1" y2="0">
-            <stop offset="0" stop-color="#0b3d47"/><stop offset="1" stop-color="#22c9d8"/>
-          </linearGradient>
-          <linearGradient id="lm" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bcc7cc"/>
-          </linearGradient>
-          <linearGradient id="ls" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#6ff0b8"/><stop offset="1" stop-color="#10b981"/>
-          </linearGradient>
-        </defs>
-        <rect width="512" height="512" rx="116" fill="url(#lb)"/>
-        <circle cx="236" cy="276" r="150" fill="none" stroke="url(#lm)" stroke-width="22"/>
-        <circle cx="236" cy="276" r="120" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="14" stroke-dasharray="6 56.8"/>
-        <line x1="236" y1="276" x2="178" y2="210" stroke="url(#lm)" stroke-width="22" stroke-linecap="round"/>
-        <line x1="236" y1="276" x2="316" y2="232" stroke="url(#lm)" stroke-width="18" stroke-linecap="round"/>
-        <circle cx="236" cy="276" r="17" fill="#1a6b8a"/>
-        <g transform="translate(404,150) scale(66)">
-          <path d="M0 -1 Q0.18 -0.18 1 0 Q0.18 0.18 0 1 Q-0.18 0.18 -1 0 Q-0.18 -0.18 0 -1 Z" fill="url(#ls)"/>
-        </g>
-      </svg>
+    <div class="glow-box">
+      <div class="glow-box-inner">
+        <div class="onboard-logo">
+          <svg viewBox="0 0 512 512" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="lm" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bcc7cc"/>
+              </linearGradient>
+              <linearGradient id="ls" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#6ff0b8"/><stop offset="1" stop-color="#10b981"/>
+              </linearGradient>
+            </defs>
+            <circle cx="236" cy="256" r="150" fill="none" stroke="url(#lm)" stroke-width="22"/>
+            <circle cx="236" cy="256" r="120" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="14" stroke-dasharray="6 56.8"/>
+            <line x1="236" y1="256" x2="178" y2="190" stroke="url(#lm)" stroke-width="22" stroke-linecap="round"/>
+            <line x1="236" y1="256" x2="316" y2="212" stroke="url(#lm)" stroke-width="18" stroke-linecap="round"/>
+            <circle cx="236" cy="256" r="17" fill="#1a6b8a"/>
+            <g transform="translate(404,130) scale(66)">
+              <path d="M0 -1 Q0.18 -0.18 1 0 Q0.18 0.18 0 1 Q-0.18 0.18 -1 0 Q-0.18 -0.18 0 -1 Z" fill="url(#ls)"/>
+            </g>
+          </svg>
+        </div>
+        <div class="onboard-brand">Time.AI</div>
+        <p class="subtitle">Sign in to track volunteer hours, build habits, and manage your time.</p>
+        <form class="onboard-form" id="onboard-form">
+          <input id="onboard-name" placeholder="Full name" required autocomplete="name" maxlength="30">
+          <input id="onboard-email" type="email" placeholder="School email" required autocomplete="email" maxlength="60">
+          <input id="onboard-uni" placeholder="University" value="FGCU" required maxlength="40">
+          <button type="submit" class="onboard-submit">Sign in</button>
+        </form>
+        <p class="onboard-note">Demo sign-in — no password required. Your info stays on your device.</p>
+      </div>
     </div>
-    <div class="onboard-brand">Time.AI</div>
-    <p class="subtitle">Your all-in-one college life manager. Track volunteer hours, build habits, manage sleep, and get smarter with your time.</p>
-    <form class="onboard-form" id="onboard-form">
-      <input id="onboard-name" placeholder="Your name" required autocomplete="name" maxlength="30">
-      <input id="onboard-uni" placeholder="University" value="FGCU" required maxlength="40">
-      <button type="submit" class="onboard-submit">Get Started</button>
-    </form>
     <div class="onboard-features">
-      <div class="onboard-feat"><div class="feat-icon" data-icon="heart" style="background:var(--green-soft);color:var(--green)"></div>Volunteer</div>
-      <div class="onboard-feat"><div class="feat-icon" data-icon="check" style="background:var(--purple-soft);color:var(--purple)"></div>Habits</div>
-      <div class="onboard-feat"><div class="feat-icon" data-icon="moon" style="background:var(--blue-soft);color:var(--blue)"></div>Sleep</div>
-      <div class="onboard-feat"><div class="feat-icon" data-icon="chat" style="background:var(--cyan-soft);color:var(--cyan)"></div>AI Chat</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="heart" style="background:rgba(16,185,129,.15);color:#10b981"></div>Volunteer</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="check" style="background:rgba(139,92,246,.15);color:#8b5cf6"></div>Habits</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="moon" style="background:rgba(37,99,235,.15);color:#3b82f6"></div>Sleep</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="chat" style="background:rgba(8,145,178,.15);color:#0891b2"></div>AI Chat</div>
     </div>
   </div>
 </div>
@@ -825,9 +835,10 @@ if(!state.user) onboardingEl.hidden=false;
 onboardForm.addEventListener('submit',e=>{
   e.preventDefault();
   const name=document.getElementById('onboard-name').value.trim();
+  const email=document.getElementById('onboard-email').value.trim();
   const uni=document.getElementById('onboard-uni').value.trim();
-  if(!name)return;
-  state.user={name,university:uni||'FGCU',joined:today()};
+  if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))return;
+  state.user={name,email,university:uni||'FGCU',joined:today()};
   save();
   onboardingEl.hidden=true;
   renderAll();
@@ -1203,7 +1214,7 @@ function renderProfile(){
   if(!state.user)return;
   document.getElementById('p-avatar').textContent=initials(state.user.name);
   document.getElementById('p-name').textContent=state.user.name;
-  document.getElementById('p-uni').textContent=state.user.university;
+  document.getElementById('p-uni').textContent=state.user.university+(state.user.email?' · '+state.user.email:'');
   const hrs=totalHours();
   document.getElementById('p-hours').textContent=hrs%1===0?hrs:hrs.toFixed(1);
   document.getElementById('p-points').textContent=totalPoints();
