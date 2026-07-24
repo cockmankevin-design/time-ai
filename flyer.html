@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Time.AI — Judge Flyer</title>
+<title>Time.AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -11,59 +11,59 @@
 @page{size:letter;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:#0f2744;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.page{width:8.5in;height:11in;margin:0 auto;padding:.5in .6in;display:flex;flex-direction:column;position:relative;overflow:hidden;background:#fff}
+.page{width:8.5in;min-height:11in;max-height:11in;margin:0 auto;padding:.4in .55in .35in;display:flex;flex-direction:column;background:#fff;overflow:hidden}
 
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.35in;position:relative;z-index:1}
-.logo-area{display:flex;align-items:center;gap:14px}
-.logo-icon{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#0f9d76,#2563eb);display:grid;place-items:center;box-shadow:0 4px 16px rgba(16,185,129,.25)}
-.logo-icon svg{width:28px;height:28px}
-.brand{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:800;letter-spacing:-.02em}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.22in}
+.logo-area{display:flex;align-items:center;gap:12px}
+.logo-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0f9d76,#2563eb);display:grid;place-items:center}
+.logo-icon svg{width:24px;height:24px}
+.brand{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.02em}
 .brand span{background:linear-gradient(135deg,#0f9d76,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.tagline-top{font-size:11px;font-weight:600;color:#64748b;letter-spacing:.06em;text-transform:uppercase}
-.class-badge{font-size:10px;font-weight:700;color:#0f9d76;background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.2);border-radius:99px;padding:6px 14px;letter-spacing:.04em}
+.tagline-top{font-size:10px;font-weight:600;color:#64748b;letter-spacing:.06em;text-transform:uppercase}
+.class-badge{font-size:9px;font-weight:700;color:#0f9d76;background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.2);border-radius:99px;padding:5px 12px;letter-spacing:.04em}
 
-.hero-section{text-align:center;margin-bottom:.3in;position:relative;z-index:1}
-.hero-section h1{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;line-height:1.2;margin-bottom:8px;letter-spacing:-.01em}
-.hero-section p{font-size:13.5px;color:#475569;line-height:1.6;max-width:5.5in;margin:0 auto}
+.hero-section{text-align:center;margin-bottom:.2in}
+.hero-section h1{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;line-height:1.25;margin-bottom:6px}
+.hero-section p{font-size:12.5px;color:#475569;line-height:1.55;max-width:5.5in;margin:0 auto}
 
-.features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:.28in;position:relative;z-index:1}
-.feature{padding:16px 18px;border-radius:14px;border:1.5px solid #e2e8f0;background:#f8fafc}
-.feature .f-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
-.feature .f-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:17px;flex:none}
-.feature .f-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700}
-.feature .f-desc{font-size:11.5px;color:#64748b;line-height:1.5}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.2in}
+.feature{padding:12px 14px;border-radius:12px;border:1.5px solid #e2e8f0}
+.feature .f-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.feature .f-icon{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex:none}
+.feature .f-title{font-family:'Space Grotesk',sans-serif;font-size:12.5px;font-weight:700}
+.feature .f-desc{font-size:10.5px;color:#64748b;line-height:1.45}
 
-.revenue-section{margin-bottom:.28in;position:relative;z-index:1}
-.revenue-section h2{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.revenue-section h2::after{content:'';flex:1;height:1.5px;background:linear-gradient(90deg,#e2e8f0,transparent)}
-.revenue-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.rev-card{padding:14px 16px;border-radius:12px;border:1.5px solid #e2e8f0;background:#f8fafc;text-align:center}
-.rev-card .rev-emoji{font-size:22px;margin-bottom:6px}
-.rev-card .rev-title{font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:700;margin-bottom:3px}
-.rev-card .rev-desc{font-size:10px;color:#64748b;line-height:1.4}
-.rev-card .rev-who{font-size:9px;font-weight:700;color:#0f9d76;margin-top:6px;text-transform:uppercase;letter-spacing:.06em}
+.revenue-section{margin-bottom:.18in}
+.revenue-section h2{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.revenue-section h2::after{content:'';flex:1;height:1.5px;background:#e2e8f0}
+.revenue-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.rev-card{padding:10px 12px;border-radius:10px;border:1.5px solid #e2e8f0;text-align:center}
+.rev-card .rev-emoji{font-size:18px;margin-bottom:4px}
+.rev-card .rev-title{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;margin-bottom:2px}
+.rev-card .rev-desc{font-size:9.5px;color:#64748b;line-height:1.4}
+.rev-card .rev-who{font-size:8px;font-weight:700;color:#0f9d76;margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
 
-.bottom-bar{margin-top:auto;display:flex;align-items:center;gap:.4in;padding-top:.2in;border-top:1.5px solid #e2e8f0;position:relative;z-index:1}
-.qr-area{flex:none;text-align:center}
-.qr-area img{width:1.5in;height:1.5in;border-radius:12px;border:2px solid #e2e8f0}
-.qr-area .qr-label{font-size:10px;font-weight:700;color:#0f9d76;margin-top:6px;letter-spacing:.04em}
-.qr-area .qr-url{font-size:9px;color:#94a3b8;margin-top:2px;word-break:break-all}
-.bottom-info{flex:1}
-.bottom-info h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
-.bottom-info p{font-size:12px;color:#475569;line-height:1.6;margin-bottom:10px}
-.team-row{display:flex;gap:8px;flex-wrap:wrap}
-.team-member{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:600;background:#f1f5f9;border-radius:99px;padding:5px 12px 5px 5px}
-.team-avatar{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:8px;font-weight:700;color:#fff}
-
-.impact-banner{background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:12px;padding:12px 18px;margin-bottom:.25in;display:flex;align-items:center;justify-content:center;gap:.5in;position:relative;z-index:1}
+.impact-banner{border:1.5px solid #e2e8f0;border-radius:10px;padding:10px 16px;margin-bottom:.18in;display:flex;align-items:center;justify-content:center;gap:.5in}
 .impact-stat{text-align:center}
-.impact-stat .is-num{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;color:#0f9d76}
-.impact-stat .is-label{font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
+.impact-stat .is-num{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#0f9d76}
+.impact-stat .is-label{font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
 
-.free-badge{display:inline-block;font-size:11px;font-weight:700;color:#fff;background:linear-gradient(135deg,#0f9d76,#2563eb);padding:4px 14px;border-radius:99px;margin-left:6px;vertical-align:middle}
+.bottom-bar{margin-top:auto;display:flex;align-items:center;gap:.35in;padding-top:.15in;border-top:1.5px solid #e2e8f0}
+.qr-area{flex:none;text-align:center}
+.qr-area img{width:1.3in;height:1.3in;border-radius:10px;border:2px solid #e2e8f0}
+.qr-area .qr-label{font-size:9px;font-weight:700;color:#0f9d76;margin-top:5px;letter-spacing:.04em}
+.qr-area .qr-url{font-size:8px;color:#94a3b8;margin-top:1px}
+.bottom-info{flex:1}
+.bottom-info h3{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;margin-bottom:4px}
+.bottom-info p{font-size:11px;color:#475569;line-height:1.55;margin-bottom:8px}
+.team-row{display:flex;gap:6px;flex-wrap:wrap}
+.team-member{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;background:#f1f5f9;border-radius:99px;padding:4px 10px 4px 4px}
+.team-avatar{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:7px;font-weight:700;color:#fff}
+
+.free-badge{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(135deg,#0f9d76,#2563eb);padding:3px 12px;border-radius:99px;margin-left:4px;vertical-align:middle}
 
 @media print{
-  .page{width:100%;height:100%;padding:.6in .7in}
+  .page{width:100%;height:100%;padding:.4in .55in .35in}
 }
 </style>
 </head>
@@ -95,7 +95,7 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
 
   <div class="hero-section">
     <h1>The Student Volunteer Platform That<br>Pays for Itself <span class="free-badge">Free for Students</span></h1>
-    <p>Time.AI helps college students track volunteer hours, build daily habits, manage sleep, and get AI-powered time management coaching. Nonprofits that need help get boosted. Students never pay a cent.</p>
+    <p>Time.AI helps college students track volunteer hours, build daily habits, manage sleep, and get personalized time management coaching. Nonprofits that need help get boosted. Students never pay a cent.</p>
   </div>
 
   <div class="features">
@@ -123,9 +123,9 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
     <div class="feature">
       <div class="f-head">
         <span class="f-icon" style="background:rgba(8,145,178,.1);color:#0891b2">&#x1f4ac;</span>
-        <span class="f-title">AI Time Coach</span>
+        <span class="f-title">Smart Time Coach</span>
       </div>
-      <div class="f-desc">Get personalized study tips, stress management, day planning, and motivation from an always-available AI coach.</div>
+      <div class="f-desc">Get personalized study tips, stress management, day planning, and motivation from an always-available coach.</div>
     </div>
   </div>
 
@@ -168,7 +168,7 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
     </div>
     <div class="bottom-info">
       <h3>Try It Yourself</h3>
-      <p>Scan the QR code to open Time.AI on your phone. Sign in with any name and email to explore volunteer tracking, habits, sleep, and the AI coach. No download required.</p>
+      <p>Scan the QR code to open Time.AI on your phone. Sign in with any name and email to explore volunteer tracking, habits, sleep, and the coach. No download required.</p>
       <div class="team-row">
         <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#ec4899,#f472b6)">KC</span>Kevin C.</span>
         <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#10b981,#059669)">SS</span>Seth Stewart</span>
