@@ -169,6 +169,14 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 .opp-featured{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);padding:3px 8px;border-radius:99px}
 .opp-card.sponsored{border:1.5px solid rgba(199,123,10,.3);background:linear-gradient(135deg,rgba(199,123,10,.04),rgba(199,123,10,.01))}
 .opp-sponsored-badge{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--gold),#d4940a);padding:3px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(199,123,10,.25)}
+.opp-card.urgent-need{border:1.5px solid rgba(220,38,38,.2);background:linear-gradient(135deg,rgba(220,38,38,.04),rgba(234,88,12,.02))}
+.opp-urgent-badge{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,var(--red),var(--orange));padding:3px 10px;border-radius:99px;box-shadow:0 2px 8px rgba(220,38,38,.2);animation:pulse-urgent 2s ease-in-out infinite}
+@keyframes pulse-urgent{0%,100%{box-shadow:0 2px 8px rgba(220,38,38,.2)}50%{box-shadow:0 2px 16px rgba(220,38,38,.4)}}
+.boost-section{margin-bottom:16px}
+.boost-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.boost-header h3{font-size:14px;font-weight:700}
+.boost-header .boost-tag{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--red);background:var(--red-soft);padding:3px 8px;border-radius:99px}
+.boost-header .boost-sub{font-size:11px;color:var(--text-muted);margin-left:auto}
 .promote-cta{text-align:center;padding:20px 16px;background:linear-gradient(135deg,rgba(199,123,10,.06),rgba(199,123,10,.02));border:1.5px dashed rgba(199,123,10,.3);border-radius:var(--radius);margin-top:16px}
 .promote-cta h3{font-size:15px;font-weight:700;margin-bottom:4px}
 .promote-cta p{font-size:12px;color:var(--text-muted);margin-bottom:12px;line-height:1.5}
@@ -705,11 +713,11 @@ const OPPORTUNITIES=[
   {id:'beach-clean',org:'Keep Lee County Beautiful',title:'Beach Cleanup',desc:'Clean up local beaches and protect marine life.',category:'environment',estHours:2,location:'Fort Myers Beach',points:25,featured:false,url:'https://klcb.org',img:'https://images.unsplash.com/photo-1526951521990-620dc14c214b?w=400&h=260&fit=crop&q=70'},
   {id:'tutor',org:'FGCU Learning Commons',title:'Peer Tutoring',desc:'Tutor fellow students in your area of expertise.',category:'education',estHours:2,location:'FGCU Campus',points:25,featured:true,sponsored:true,url:'https://www.fgcu.edu',img:'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=260&fit=crop&q=70'},
   {id:'animal-shelter',org:'Gulf Coast Humane Society',title:'Animal Care Assistant',desc:'Help care for shelter animals and assist with adoptions.',category:'animals',estHours:3,location:'Fort Myers, FL',points:35,featured:false,url:'https://www.gulfcoasthumanesociety.org',img:'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=400&h=260&fit=crop&q=70'},
-  {id:'senior-visit',org:'Senior Friendship Centers',title:'Senior Companion Visit',desc:'Visit and spend time with elderly community members.',category:'health',estHours:2,location:'Fort Myers, FL',points:25,featured:false,url:'https://www.friendshipcenters.org',img:'https://images.unsplash.com/photo-1447005497901-b3e9ee359928?w=400&h=260&fit=crop&q=70'},
+  {id:'senior-visit',org:'Senior Friendship Centers',title:'Senior Companion Visit',desc:'Visit and spend time with elderly community members.',category:'health',estHours:2,location:'Fort Myers, FL',points:25,featured:false,urgentNeed:true,volunteersNeeded:12,volunteersCurrent:3,url:'https://www.friendshipcenters.org',img:'https://images.unsplash.com/photo-1447005497901-b3e9ee359928?w=400&h=260&fit=crop&q=70'},
   {id:'campus-garden',org:'FGCU Sustainability',title:'Campus Community Garden',desc:'Help maintain the campus garden and grow fresh produce.',category:'environment',estHours:2,location:'FGCU Campus',points:25,featured:false,url:'https://www.fgcu.edu',img:'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=260&fit=crop&q=70'},
   {id:'mentor-youth',org:'Big Brothers Big Sisters',title:'Youth Mentorship',desc:'Mentor local youth and make a lasting impact.',category:'education',estHours:3,location:'Lee County, FL',points:40,featured:true,sponsored:true,url:'https://www.bbbs.org',img:'https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=400&h=260&fit=crop&q=70'},
-  {id:'disaster-prep',org:'American Red Cross SWFL',title:'Disaster Preparedness',desc:'Help communities prepare for hurricane season.',category:'community',estHours:4,location:'Lee County, FL',points:50,featured:false,url:'https://www.redcross.org',img:'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&h=260&fit=crop&q=70'},
-  {id:'health-clinic',org:'Neighborhood Health Clinic',title:'Health Clinic Volunteer',desc:'Assist at free health clinics serving uninsured patients.',category:'health',estHours:4,location:'Fort Myers, FL',points:50,featured:false,url:'https://neighborhoodhealthclinic.org',img:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=260&fit=crop&q=70'}
+  {id:'disaster-prep',org:'American Red Cross SWFL',title:'Disaster Preparedness',desc:'Help communities prepare for hurricane season.',category:'community',estHours:4,location:'Lee County, FL',points:50,featured:false,urgentNeed:true,volunteersNeeded:20,volunteersCurrent:5,url:'https://www.redcross.org',img:'https://images.unsplash.com/photo-1593113598332-cd288d649433?w=400&h=260&fit=crop&q=70'},
+  {id:'health-clinic',org:'Neighborhood Health Clinic',title:'Health Clinic Volunteer',desc:'Assist at free health clinics serving uninsured patients.',category:'health',estHours:4,location:'Fort Myers, FL',points:50,featured:false,urgentNeed:true,volunteersNeeded:15,volunteersCurrent:4,url:'https://neighborhoodhealthclinic.org',img:'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=260&fit=crop&q=70'}
 ];
 
 const FAKE_BOARD=[
@@ -919,14 +927,16 @@ function makeOppCard(opp,compact){
   const div=document.createElement('div');
   div.className='opp-card'+(opp.sponsored?' sponsored':'');
   const signed=state.signups.includes(opp.id);
+  if(opp.urgentNeed)div.classList.add('urgent-need');
   div.innerHTML=
-    (opp.sponsored?'<span class="opp-sponsored-badge">Sponsored</span>':opp.featured?'<span class="opp-featured">Featured</span>':'')+
+    (opp.urgentNeed?'<span class="opp-urgent-badge">Needs Help</span>':opp.sponsored?'<span class="opp-sponsored-badge">Sponsored</span>':opp.featured?'<span class="opp-featured">Featured</span>':'')+
     catTile(opp.category,opp.img)+
     '<div class="opp-info">'+
       '<div class="opp-org">'+esc(opp.org)+'</div>'+
       '<div class="opp-title">'+esc(opp.title)+'</div>'+
       (compact?'':'<div class="opp-desc">'+esc(opp.desc)+'</div>')+
       '<div class="opp-meta"><span>'+icon('clock',13)+opp.estHours+'h</span><span>'+icon('pin',13)+esc(opp.location)+'</span><span>'+icon('bolt',13)+opp.points+' pts</span></div>'+
+      (opp.urgentNeed?'<div style="margin-top:8px"><div style="display:flex;justify-content:space-between;font-size:10px;font-weight:600;color:var(--red);margin-bottom:3px"><span>Volunteers needed</span><span>'+opp.volunteersCurrent+'/'+opp.volunteersNeeded+'</span></div><div class="progress-track" style="height:5px"><div class="progress-fill" style="width:'+Math.round((opp.volunteersCurrent/opp.volunteersNeeded)*100)+'%;background:linear-gradient(90deg,var(--red),var(--orange))"></div></div></div>':'')+
       (opp.url?'<a class="opp-link" href="'+esc(opp.url)+'" target="_blank" rel="noopener noreferrer">'+icon('external',13)+'Visit website</a>':'')+
     '</div>'+
     '<div class="opp-action"><button class="opp-btn'+(signed?' signed':'')+'">'+(signed?'Signed Up':'Sign Up')+'</button></div>';
@@ -971,9 +981,16 @@ function renderDiscover(){
   let opps=OPPORTUNITIES;
   if(currentCat!=='all')opps=opps.filter(o=>o.category===currentCat);
   if(searchVal)opps=opps.filter(o=>(o.title+o.org+o.desc).toLowerCase().includes(searchVal));
-  const sorted=[...opps.filter(o=>o.sponsored),...opps.filter(o=>o.featured&&!o.sponsored),...opps.filter(o=>!o.featured&&!o.sponsored)];
-  if(!sorted.length){listEl.innerHTML='<div class="empty-state">No opportunities found.</div>';return}
-  sorted.forEach(o=>listEl.appendChild(makeOppCard(o,false)));
+  const urgent=opps.filter(o=>o.urgentNeed);
+  const rest=[...opps.filter(o=>o.sponsored&&!o.urgentNeed),...opps.filter(o=>o.featured&&!o.sponsored&&!o.urgentNeed),...opps.filter(o=>!o.featured&&!o.sponsored&&!o.urgentNeed)];
+  if(!urgent.length&&!rest.length){listEl.innerHTML='<div class="empty-state">No opportunities found.</div>';return}
+  if(urgent.length){
+    const sec=document.createElement('div');sec.className='boost-section';
+    sec.innerHTML='<div class="boost-header"><h3>Needs Your Help</h3><span class="boost-tag">Community Boost</span></div>';
+    urgent.forEach(o=>sec.appendChild(makeOppCard(o,false)));
+    listEl.appendChild(sec);
+  }
+  rest.forEach(o=>listEl.appendChild(makeOppCard(o,false)));
   const cta=document.createElement('div');
   cta.className='promote-cta';
   cta.innerHTML='<h3>Promote Your Organization</h3><p>Reach hundreds of student volunteers. Sponsored listings appear first and get 3x more sign-ups.</p><button class="promote-btn">Learn More</button>';
