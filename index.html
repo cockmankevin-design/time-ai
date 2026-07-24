@@ -6,53 +6,54 @@
 <title>Time.AI — Every Hour Counts</title>
 <meta name="description" content="Track volunteer hours, build habits, manage sleep, and get AI-powered time management tips. Built by FGCU students.">
 <meta name="theme-color" content="#0a0f1a">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='%2310b981'/><stop offset='100%' stop-color='%233b82f6'/></linearGradient></defs><circle cx='50' cy='50' r='46' fill='url(%23g)'/><text x='50' y='66' font-size='40' text-anchor='middle' fill='white' font-weight='bold'>T</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='b' x1='0' y1='1' x2='1' y2='0'><stop offset='0' stop-color='%230b3d47'/><stop offset='1' stop-color='%2322c9d8'/></linearGradient><linearGradient id='m' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23ffffff'/><stop offset='1' stop-color='%23bcc7cc'/></linearGradient><linearGradient id='s' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%236ff0b8'/><stop offset='1' stop-color='%2310b981'/></linearGradient></defs><rect width='512' height='512' rx='112' fill='url(%23b)'/><circle cx='236' cy='276' r='150' fill='none' stroke='url(%23m)' stroke-width='22'/><line x1='236' y1='276' x2='178' y2='210' stroke='url(%23m)' stroke-width='22' stroke-linecap='round'/><line x1='236' y1='276' x2='316' y2='232' stroke='url(%23m)' stroke-width='18' stroke-linecap='round'/><circle cx='236' cy='276' r='17' fill='%231a6b8a'/><g transform='translate(404,150) scale(66)'><path d='M0 -1 Q0.18 -0.18 1 0 Q0.18 0.18 0 1 Q-0.18 0.18 -1 0 Q-0.18 -0.18 0 -1 Z' fill='url(%23s)'/></g></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  color-scheme: dark;
-  --bg: #0a0f1a;
-  --bg2: #0f1525;
-  --card: rgba(255,255,255,.05);
-  --card-solid: #141d2e;
-  --card-hover: rgba(255,255,255,.08);
-  --border: rgba(255,255,255,.08);
-  --border-light: rgba(255,255,255,.12);
-  --text: #f1f5f9;
-  --text-mid: #94a3b8;
-  --text-muted: #64748b;
-  --green: #10b981;
-  --green-soft: rgba(16,185,129,.12);
-  --green-glow: rgba(16,185,129,.3);
-  --blue: #3b82f6;
-  --blue-soft: rgba(59,130,246,.12);
-  --purple: #8b5cf6;
-  --purple-soft: rgba(139,92,246,.12);
-  --gold: #f59e0b;
-  --gold-soft: rgba(245,158,11,.12);
-  --pink: #ec4899;
-  --pink-soft: rgba(236,72,153,.12);
-  --orange: #f97316;
-  --orange-soft: rgba(249,115,22,.12);
-  --red: #ef4444;
-  --red-soft: rgba(239,68,68,.12);
-  --cyan: #06b6d4;
-  --cyan-soft: rgba(6,182,212,.12);
-  --gradient-1: linear-gradient(135deg, #10b981, #3b82f6);
-  --gradient-2: linear-gradient(135deg, #8b5cf6, #ec4899);
-  --gradient-3: linear-gradient(135deg, #f59e0b, #f97316);
-  --shadow: 0 4px 24px rgba(0,0,0,.3);
-  --shadow-lg: 0 8px 40px rgba(0,0,0,.4);
+  color-scheme: light;
+  --bg: #eef2f7;
+  --bg2: #e4e9f1;
+  --card: #ffffff;
+  --card-solid: #ffffff;
+  --card-hover: #f2f5fa;
+  --border: #e2e8f0;
+  --border-light: #cbd5e1;
+  --text: #0f2744;
+  --text-mid: #475569;
+  --text-muted: #7c8aa0;
+  --green: #0f9d76;
+  --green-soft: rgba(15,157,118,.12);
+  --green-glow: rgba(15,157,118,.22);
+  --blue: #2563eb;
+  --blue-soft: rgba(37,99,235,.10);
+  --purple: #7c3aed;
+  --purple-soft: rgba(124,58,237,.10);
+  --gold: #c77b0a;
+  --gold-soft: rgba(199,123,10,.12);
+  --pink: #db2777;
+  --pink-soft: rgba(219,39,119,.10);
+  --orange: #ea580c;
+  --orange-soft: rgba(234,88,12,.10);
+  --red: #dc2626;
+  --red-soft: rgba(220,38,38,.10);
+  --cyan: #0891b2;
+  --cyan-soft: rgba(8,145,178,.10);
+  --navy: #0f2744;
+  --gradient-1: linear-gradient(135deg, #0f9d76, #2563eb);
+  --gradient-2: linear-gradient(135deg, #2563eb, #7c3aed);
+  --gradient-3: linear-gradient(135deg, #0891b2, #2563eb);
+  --shadow: 0 1px 2px rgba(15,39,68,.05), 0 4px 16px rgba(15,39,68,.07);
+  --shadow-lg: 0 8px 32px rgba(15,39,68,.12);
   --radius: 16px;
   --radius-sm: 12px;
-  --tabbar-h: 68px;
+  --tabbar-h: 72px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 html{-webkit-text-size-adjust:100%;height:100%}
-body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text);height:100%;overflow:hidden;font-size:14px;line-height:1.5;background:#000}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:var(--text);height:100%;overflow:hidden;font-size:14px;line-height:1.5;background:var(--bg)}
 button,input,select,textarea{font-family:inherit;font-size:inherit;color:inherit}
 h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-spacing:-.02em}
 
@@ -161,7 +162,11 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 .opp-action{flex:none;align-self:center}
 .opp-btn{font-size:12px;font-weight:700;color:var(--green);background:var(--green-soft);border:none;border-radius:10px;padding:8px 14px;cursor:pointer;white-space:nowrap;transition:transform .12s}
 .opp-btn:active{transform:scale(.95)}
-.opp-btn.signed{color:var(--text-muted);background:rgba(255,255,255,.05);cursor:default}
+.opp-btn.signed{color:var(--text-muted);background:var(--bg2);cursor:default}
+.opp-thumb{flex:none;width:60px;height:60px;border-radius:14px;display:grid;place-items:center;box-shadow:0 2px 10px rgba(15,39,68,.15)}
+.opp-meta svg{width:13px;height:13px;flex:none;stroke:var(--text-muted)}
+.opp-link{display:inline-flex;align-items:center;gap:5px;margin-top:9px;font-size:11.5px;font-weight:700;color:var(--blue);text-decoration:none}
+.opp-link:active{opacity:.6}
 
 /* search & filters */
 .search-wrap{position:relative;margin-bottom:12px}
@@ -272,6 +277,11 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 .chat-sug{font-size:11px;font-weight:600;padding:8px 14px;border-radius:99px;border:1.5px solid var(--border);background:none;color:var(--text-mid);cursor:pointer;transition:all .15s;white-space:nowrap}
 .chat-sug:active{transform:scale(.95)}
 .chat-sug:hover{border-color:var(--green);color:var(--green)}
+.typing-dots{display:inline-flex;gap:5px;align-items:center;padding:2px 0}
+.typing-dots span{width:7px;height:7px;border-radius:50%;background:var(--text-muted);animation:tblink 1.2s infinite ease-in-out}
+.typing-dots span:nth-child(2){animation-delay:.18s}
+.typing-dots span:nth-child(3){animation-delay:.36s}
+@keyframes tblink{0%,80%,100%{opacity:.25}40%{opacity:1}}
 
 /* profile */
 .profile-hero{text-align:center;padding:24px 16px 20px;position:relative}
@@ -304,7 +314,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
 /* tab bar */
-.tabbar{position:absolute;left:0;right:0;bottom:0;z-index:10;display:flex;background:rgba(10,15,26,.92);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);border-top:1px solid var(--border);padding:4px 2px calc(6px + env(safe-area-inset-bottom))}
+.tabbar{position:absolute;left:0;right:0;bottom:0;z-index:10;display:flex;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);border-top:1px solid var(--border);padding:4px 2px calc(6px + env(safe-area-inset-bottom))}
 .tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;background:none;border:none;color:var(--text-muted);cursor:pointer;padding:6px 2px;border-radius:10px;transition:color .15s}
 .tab .tab-ico{font-size:20px;line-height:1;transition:transform .15s}
 .tab .tab-lbl{font-size:9px;font-weight:700;letter-spacing:.02em}
@@ -318,6 +328,17 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 .confetti{position:absolute;top:-12px;width:8px;height:12px;border-radius:2px;z-index:99;pointer-events:none;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(700px) rotate(720deg);opacity:.2}}
 @media(prefers-reduced-motion:reduce){.card,.screen,.opp-card,.confetti,.chat-msg{animation:none!important}.confetti{display:none}}
+
+/* icons + professional refinements */
+.tab .tab-ico svg,.qb-icon svg,.feat-icon svg,.s-icon svg,.search-icon svg,.habit-icon svg,.log-icon svg,.opp-thumb svg,.back-btn svg{display:block}
+.back-btn{display:inline-flex;align-items:center;gap:3px;background:none;border:none;color:var(--text-mid);font-size:13px;font-weight:600;cursor:pointer;padding:2px 0;margin-bottom:8px;margin-left:-3px}
+.back-btn svg{width:18px;height:18px}
+.back-btn:active{opacity:.55}
+.qbtn{flex:1;max-width:54px;padding:11px 0;font-weight:700;font-size:15px;font-family:'Space Grotesk',sans-serif;background:var(--card);border:1.5px solid var(--border);border-radius:10px;color:var(--text);cursor:pointer;transition:all .15s}
+.qbtn:active{transform:scale(.94)}
+.streak-pill{flex:none;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px;color:var(--orange);background:var(--orange-soft);border-radius:99px;padding:4px 9px}
+.podium-medal{font-size:11px;font-weight:800;letter-spacing:.03em;color:var(--text-muted)}
+.podium-item.first .podium-medal{color:var(--gold)}
 </style>
 </head>
 <body>
@@ -328,12 +349,28 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 <!-- ONBOARDING -->
 <div class="onboarding" id="onboarding" hidden>
   <div class="onboard-inner">
-    <div class="onboard-logo">
-      <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="16" stroke="white" stroke-width="2.5" fill="none"/>
-        <line x1="20" y1="10" x2="20" y2="20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        <line x1="20" y1="20" x2="27" y2="24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        <circle cx="20" cy="20" r="2" fill="white"/>
+    <div class="onboard-logo" style="background:none;padding:0;overflow:hidden">
+      <svg viewBox="0 0 512 512" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="lb" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0" stop-color="#0b3d47"/><stop offset="1" stop-color="#22c9d8"/>
+          </linearGradient>
+          <linearGradient id="lm" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#bcc7cc"/>
+          </linearGradient>
+          <linearGradient id="ls" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#6ff0b8"/><stop offset="1" stop-color="#10b981"/>
+          </linearGradient>
+        </defs>
+        <rect width="512" height="512" rx="116" fill="url(#lb)"/>
+        <circle cx="236" cy="276" r="150" fill="none" stroke="url(#lm)" stroke-width="22"/>
+        <circle cx="236" cy="276" r="120" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="14" stroke-dasharray="6 56.8"/>
+        <line x1="236" y1="276" x2="178" y2="210" stroke="url(#lm)" stroke-width="22" stroke-linecap="round"/>
+        <line x1="236" y1="276" x2="316" y2="232" stroke="url(#lm)" stroke-width="18" stroke-linecap="round"/>
+        <circle cx="236" cy="276" r="17" fill="#1a6b8a"/>
+        <g transform="translate(404,150) scale(66)">
+          <path d="M0 -1 Q0.18 -0.18 1 0 Q0.18 0.18 0 1 Q-0.18 0.18 -1 0 Q-0.18 -0.18 0 -1 Z" fill="url(#ls)"/>
+        </g>
       </svg>
     </div>
     <div class="onboard-brand">Time.AI</div>
@@ -344,10 +381,10 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
       <button type="submit" class="onboard-submit">Get Started</button>
     </form>
     <div class="onboard-features">
-      <div class="onboard-feat"><div class="feat-icon" style="background:var(--green-soft)">&#x23F1;</div>Volunteer</div>
-      <div class="onboard-feat"><div class="feat-icon" style="background:var(--purple-soft)">&#x1F4CA;</div>Habits</div>
-      <div class="onboard-feat"><div class="feat-icon" style="background:var(--blue-soft)">&#x1F634;</div>Sleep</div>
-      <div class="onboard-feat"><div class="feat-icon" style="background:var(--gold-soft)">&#x1F916;</div>AI Chat</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="heart" style="background:var(--green-soft);color:var(--green)"></div>Volunteer</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="check" style="background:var(--purple-soft);color:var(--purple)"></div>Habits</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="moon" style="background:var(--blue-soft);color:var(--blue)"></div>Sleep</div>
+      <div class="onboard-feat"><div class="feat-icon" data-icon="chat" style="background:var(--cyan-soft);color:var(--cyan)"></div>AI Chat</div>
     </div>
   </div>
 </div>
@@ -359,15 +396,15 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
     <h1 id="greeting"></h1>
   </div>
   <div class="stat-row">
-    <div class="stat-card"><div class="stat-icon">&#x23F1;</div><span class="stat-num" id="h-hours" style="color:var(--green)">0</span><span class="stat-lbl">Hours</span></div>
-    <div class="stat-card"><div class="stat-icon">&#x1F525;</div><span class="stat-num" id="h-streak" style="color:var(--orange)">0</span><span class="stat-lbl">Streak</span></div>
-    <div class="stat-card"><div class="stat-icon">&#x1F3C6;</div><span class="stat-num" id="h-rank" style="color:var(--purple)">#--</span><span class="stat-lbl">Rank</span></div>
+    <div class="stat-card"><span class="stat-num" id="h-hours" style="color:var(--green)">0</span><span class="stat-lbl">Hours</span></div>
+    <div class="stat-card"><span class="stat-num" id="h-streak" style="color:var(--orange)">0</span><span class="stat-lbl">Day Streak</span></div>
+    <div class="stat-card"><span class="stat-num" id="h-rank" style="color:var(--purple)">#--</span><span class="stat-lbl">Rank</span></div>
   </div>
   <div class="quick-actions">
-    <button class="quick-btn" id="qa-log"><span class="qb-icon" style="background:var(--green-soft)">&#x23F1;</span><span><span class="qb-text">Log Hours</span><br><span class="qb-sub">Track volunteering</span></span></button>
-    <button class="quick-btn" id="qa-habits"><span class="qb-icon" style="background:var(--purple-soft)">&#x2705;</span><span><span class="qb-text">Habits</span><br><span class="qb-sub">Check in today</span></span></button>
-    <button class="quick-btn" id="qa-sleep"><span class="qb-icon" style="background:var(--blue-soft)">&#x1F634;</span><span><span class="qb-text">Sleep</span><br><span class="qb-sub">Log last night</span></span></button>
-    <button class="quick-btn" id="qa-chat"><span class="qb-icon" style="background:var(--gold-soft)">&#x1F916;</span><span><span class="qb-text">AI Chat</span><br><span class="qb-sub">Get advice</span></span></button>
+    <button class="quick-btn" id="qa-log"><span class="qb-icon" data-icon="clock" style="background:var(--green-soft);color:var(--green)"></span><span><span class="qb-text">Log Hours</span><br><span class="qb-sub">Track volunteering</span></span></button>
+    <button class="quick-btn" id="qa-habits"><span class="qb-icon" data-icon="check" style="background:var(--purple-soft);color:var(--purple)"></span><span><span class="qb-text">Habits</span><br><span class="qb-sub">Check in today</span></span></button>
+    <button class="quick-btn" id="qa-sleep"><span class="qb-icon" data-icon="moon" style="background:var(--blue-soft);color:var(--blue)"></span><span><span class="qb-text">Sleep</span><br><span class="qb-sub">Log last night</span></span></button>
+    <button class="quick-btn" id="qa-chat"><span class="qb-icon" data-icon="chat" style="background:var(--cyan-soft);color:var(--cyan)"></span><span><span class="qb-text">AI Chat</span><br><span class="qb-sub">Get advice</span></span></button>
   </div>
   <div class="progress-bar-wrap">
     <div class="label"><span>Weekly volunteer goal</span><b id="weekly-label">0 / 5 hrs</b></div>
@@ -375,11 +412,11 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
   </div>
   <div class="impact-line" id="impact-line"></div>
   <div class="card">
-    <div class="card-head"><h2>&#x1F31F; Up Next</h2></div>
+    <div class="card-head"><h2>Up Next</h2></div>
     <div id="home-opp"></div>
   </div>
   <div class="card">
-    <div class="card-head"><h2>&#x1F4C8; Recent Activity</h2></div>
+    <div class="card-head"><h2>Recent Activity</h2></div>
     <div class="log-list" id="home-activity"></div>
     <div class="empty-state" id="home-empty">No hours logged yet. Start volunteering!</div>
   </div>
@@ -389,6 +426,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 <!-- VOLUNTEER -->
 <main class="screen" data-screen="volunteer">
   <div class="topbar">
+    <button class="back-btn" data-back><span data-icon="back"></span>Home</button>
     <div class="eyebrow">Volunteer</div>
     <h1>Service Hours</h1>
   </div>
@@ -401,7 +439,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
   <!-- discover sub -->
   <div id="vpanel-discover">
     <div class="search-wrap">
-      <span class="search-icon">&#x1F50D;</span>
+      <span class="search-icon" data-icon="search"></span>
       <input type="text" id="opp-search" placeholder="Search opportunities..." autocomplete="off">
     </div>
     <div class="cat-chips" id="cat-chips"></div>
@@ -457,6 +495,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 <!-- WELLNESS (Habits + Sleep) -->
 <main class="screen" data-screen="wellness">
   <div class="topbar">
+    <button class="back-btn" data-back><span data-icon="back"></span>Home</button>
     <div class="eyebrow">Wellness</div>
     <h1>Habits & Sleep</h1>
   </div>
@@ -480,7 +519,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
       <div class="empty-state" id="habit-empty">No habits yet. Add your first one!</div>
     </div>
     <div class="card">
-      <div class="card-head"><h2>&#x1F525; Streaks</h2></div>
+      <div class="card-head"><h2>Streaks</h2></div>
       <div id="habit-streaks"></div>
     </div>
   </div>
@@ -495,7 +534,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
         </div>
         <div style="text-align:right">
           <div style="font-size:11px;color:var(--text-muted)">Quality</div>
-          <div id="sleep-quality-display" style="font-size:24px">&#x2014;</div>
+          <div id="sleep-quality-display" style="font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700">&#x2014;</div>
         </div>
       </div>
     </div>
@@ -506,13 +545,13 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
           <div class="form-group" style="margin-bottom:0"><label>Bedtime</label><input type="time" id="s-bed" required></div>
           <div class="form-group" style="margin-bottom:0"><label>Wake up</label><input type="time" id="s-wake" required></div>
         </div>
-        <div class="form-group"><label>Quality</label>
+        <div class="form-group"><label>Quality (1 = poor, 5 = great)</label>
           <div style="display:flex;gap:8px;justify-content:center;margin-top:4px" id="s-quality-btns">
-            <button type="button" class="btn" data-q="1" style="font-size:20px;padding:8px 14px;background:var(--card);border:1px solid var(--border)">&#x1F634;</button>
-            <button type="button" class="btn" data-q="2" style="font-size:20px;padding:8px 14px;background:var(--card);border:1px solid var(--border)">&#x1F615;</button>
-            <button type="button" class="btn" data-q="3" style="font-size:20px;padding:8px 14px;background:var(--card);border:1px solid var(--border)">&#x1F642;</button>
-            <button type="button" class="btn" data-q="4" style="font-size:20px;padding:8px 14px;background:var(--card);border:1px solid var(--border)">&#x1F60A;</button>
-            <button type="button" class="btn" data-q="5" style="font-size:20px;padding:8px 14px;background:var(--card);border:1px solid var(--border)">&#x1F929;</button>
+            <button type="button" class="qbtn" data-q="1">1</button>
+            <button type="button" class="qbtn" data-q="2">2</button>
+            <button type="button" class="qbtn" data-q="3">3</button>
+            <button type="button" class="qbtn" data-q="4">4</button>
+            <button type="button" class="qbtn" data-q="5">5</button>
           </div>
         </div>
         <button type="submit" class="btn btn-green btn-block">Log Sleep</button>
@@ -533,6 +572,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 <!-- AI CHAT -->
 <main class="screen" data-screen="chat">
   <div class="topbar">
+    <button class="back-btn" data-back><span data-icon="back"></span>Home</button>
     <div class="eyebrow">AI Assistant</div>
     <h1>Time.AI Chat</h1>
     <p>Your personal time management coach</p>
@@ -555,6 +595,7 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 <!-- PROFILE -->
 <main class="screen" data-screen="profile">
   <div class="topbar">
+    <button class="back-btn" data-back><span data-icon="back"></span>Home</button>
     <div class="eyebrow">You</div>
     <h1>Profile</h1>
   </div>
@@ -584,8 +625,8 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
   </div>
   <div class="card">
     <div class="card-head"><h2>Settings</h2></div>
-    <div class="setting-row"><span class="s-icon">&#x1F514;</span><span class="s-text"><b>Notifications</b><small>Reminders to log hours</small></span><label class="switch"><input type="checkbox" id="set-notif"><span class="track"></span><span class="knob"></span></label></div>
-    <div class="setting-row"><span class="s-icon">&#x1F50A;</span><span class="s-text"><b>Sound</b><small>Timer completion chime</small></span><label class="switch"><input type="checkbox" id="set-sound"><span class="track"></span><span class="knob"></span></label></div>
+    <div class="setting-row"><span class="s-icon" data-icon="bell"></span><span class="s-text"><b>Notifications</b><small>Reminders to log hours</small></span><label class="switch"><input type="checkbox" id="set-notif"><span class="track"></span><span class="knob"></span></label></div>
+    <div class="setting-row"><span class="s-icon" data-icon="volume"></span><span class="s-text"><b>Sound</b><small>Timer completion chime</small></span><label class="switch"><input type="checkbox" id="set-sound"><span class="track"></span><span class="knob"></span></label></div>
     <button class="btn btn-red btn-block" style="margin-top:12px" id="set-reset">Reset all data</button>
   </div>
   <div style="text-align:center;margin-top:8px;font-size:10px;color:var(--text-muted)">Time.AI v3.0 &middot; FGCU Social Entrepreneurship</div>
@@ -595,11 +636,11 @@ h1,h2,h3{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;letter-s
 
 <!-- TAB BAR -->
 <nav class="tabbar">
-  <button class="tab active" data-tab="home"><span class="tab-ico">&#x1F3E0;</span><span class="tab-lbl">Home</span></button>
-  <button class="tab" data-tab="volunteer"><span class="tab-ico">&#x1F91D;</span><span class="tab-lbl">Volunteer</span></button>
-  <button class="tab" data-tab="wellness"><span class="tab-ico">&#x1F49A;</span><span class="tab-lbl">Wellness</span></button>
-  <button class="tab" data-tab="chat"><span class="tab-ico">&#x1F916;</span><span class="tab-lbl">AI Chat</span></button>
-  <button class="tab" data-tab="profile"><span class="tab-ico">&#x1F464;</span><span class="tab-lbl">Profile</span></button>
+  <button class="tab active" data-tab="home"><span class="tab-ico" data-icon="home"></span><span class="tab-lbl">Home</span></button>
+  <button class="tab" data-tab="volunteer"><span class="tab-ico" data-icon="heart"></span><span class="tab-lbl">Volunteer</span></button>
+  <button class="tab" data-tab="wellness"><span class="tab-ico" data-icon="pulse"></span><span class="tab-lbl">Wellness</span></button>
+  <button class="tab" data-tab="chat"><span class="tab-ico" data-icon="chat"></span><span class="tab-lbl">AI Chat</span></button>
+  <button class="tab" data-tab="profile"><span class="tab-ico" data-icon="user"></span><span class="tab-lbl">Profile</span></button>
 </nav>
 
 </div>
@@ -615,16 +656,16 @@ const IMPACT_RATE=33.49;
 const CONFETTI_COLORS=['#10b981','#3b82f6','#8b5cf6','#ec4899','#f59e0b'];
 
 const OPPORTUNITIES=[
-  {id:'hab-build',org:'Habitat for Humanity',title:'Home Build Volunteer',desc:'Help build affordable housing for families in need.',category:'community',estHours:4,location:'Fort Myers, FL',points:50,featured:true,icon:'\u{1F3E0}',bg:'var(--green-soft)'},
-  {id:'food-bank',org:'Harry Chapin Food Bank',title:'Food Sorting & Distribution',desc:'Sort and distribute food to families facing hunger.',category:'community',estHours:3,location:'Fort Myers, FL',points:35,featured:false,icon:'\u{1F34E}',bg:'var(--red-soft)'},
-  {id:'beach-clean',org:'Keep Lee County Beautiful',title:'Beach Cleanup',desc:'Clean up local beaches and protect marine life.',category:'environment',estHours:2,location:'Fort Myers Beach',points:25,featured:false,icon:'\u{1F3D6}',bg:'var(--blue-soft)'},
-  {id:'tutor',org:'FGCU Learning Center',title:'Peer Tutoring',desc:'Tutor fellow students in your area of expertise.',category:'education',estHours:2,location:'FGCU Campus',points:25,featured:true,icon:'\u{1F4DA}',bg:'var(--gold-soft)'},
-  {id:'animal-shelter',org:'Gulf Coast Humane Society',title:'Animal Care Assistant',desc:'Help care for shelter animals and assist with adoptions.',category:'animals',estHours:3,location:'Fort Myers, FL',points:35,featured:false,icon:'\u{1F43E}',bg:'var(--orange-soft)'},
-  {id:'senior-visit',org:'Senior Friendship Centers',title:'Senior Companion Visit',desc:'Visit and spend time with elderly community members.',category:'health',estHours:2,location:'Fort Myers, FL',points:25,featured:false,icon:'\u{2764}',bg:'var(--pink-soft)'},
-  {id:'campus-garden',org:'FGCU Sustainability',title:'Campus Community Garden',desc:'Help maintain the campus garden and grow fresh produce.',category:'environment',estHours:2,location:'FGCU Campus',points:25,featured:false,icon:'\u{1F331}',bg:'var(--green-soft)'},
-  {id:'mentor-youth',org:'Big Brothers Big Sisters',title:'Youth Mentorship',desc:'Mentor local youth and make a lasting impact.',category:'education',estHours:3,location:'Lee County, FL',points:40,featured:true,icon:'\u{1F91D}',bg:'var(--purple-soft)'},
-  {id:'disaster-prep',org:'Red Cross SWFL',title:'Disaster Preparedness',desc:'Help communities prepare for hurricane season.',category:'community',estHours:4,location:'Lee County, FL',points:50,featured:false,icon:'\u{1F6E1}',bg:'var(--red-soft)'},
-  {id:'health-clinic',org:'Neighborhood Health Clinic',title:'Health Clinic Volunteer',desc:'Assist at free health clinics serving uninsured patients.',category:'health',estHours:4,location:'Fort Myers, FL',points:50,featured:false,icon:'\u{1F3E5}',bg:'var(--pink-soft)'}
+  {id:'hab-build',org:'Habitat for Humanity',title:'Home Build Volunteer',desc:'Help build affordable housing for families in need.',category:'community',estHours:4,location:'Fort Myers, FL',points:50,featured:true,url:'https://www.habitat.org'},
+  {id:'food-bank',org:'Harry Chapin Food Bank',title:'Food Sorting & Distribution',desc:'Sort and distribute food to families facing hunger.',category:'community',estHours:3,location:'Fort Myers, FL',points:35,featured:false,url:'https://harrychapinfoodbank.org'},
+  {id:'beach-clean',org:'Keep Lee County Beautiful',title:'Beach Cleanup',desc:'Clean up local beaches and protect marine life.',category:'environment',estHours:2,location:'Fort Myers Beach',points:25,featured:false,url:'https://www.keepleecountybeautiful.org'},
+  {id:'tutor',org:'FGCU Learning Commons',title:'Peer Tutoring',desc:'Tutor fellow students in your area of expertise.',category:'education',estHours:2,location:'FGCU Campus',points:25,featured:true,url:'https://www.fgcu.edu'},
+  {id:'animal-shelter',org:'Gulf Coast Humane Society',title:'Animal Care Assistant',desc:'Help care for shelter animals and assist with adoptions.',category:'animals',estHours:3,location:'Fort Myers, FL',points:35,featured:false,url:'https://www.gulfcoasthumanesociety.org'},
+  {id:'senior-visit',org:'Senior Friendship Centers',title:'Senior Companion Visit',desc:'Visit and spend time with elderly community members.',category:'health',estHours:2,location:'Fort Myers, FL',points:25,featured:false,url:'https://www.friendshipcenters.org'},
+  {id:'campus-garden',org:'FGCU Sustainability',title:'Campus Community Garden',desc:'Help maintain the campus garden and grow fresh produce.',category:'environment',estHours:2,location:'FGCU Campus',points:25,featured:false,url:'https://www.fgcu.edu'},
+  {id:'mentor-youth',org:'Big Brothers Big Sisters',title:'Youth Mentorship',desc:'Mentor local youth and make a lasting impact.',category:'education',estHours:3,location:'Lee County, FL',points:40,featured:true,url:'https://www.bbbs.org'},
+  {id:'disaster-prep',org:'American Red Cross SWFL',title:'Disaster Preparedness',desc:'Help communities prepare for hurricane season.',category:'community',estHours:4,location:'Lee County, FL',points:50,featured:false,url:'https://www.redcross.org'},
+  {id:'health-clinic',org:'Neighborhood Health Clinic',title:'Health Clinic Volunteer',desc:'Assist at free health clinics serving uninsured patients.',category:'health',estHours:4,location:'Fort Myers, FL',points:50,featured:false,url:'https://neighborhoodhealthclinic.org'}
 ];
 
 const FAKE_BOARD=[
@@ -641,35 +682,40 @@ const CATEGORIES=[
 ];
 
 const BADGES=[
-  {id:'first-hour',label:'First Hour',icon:'\u{2B50}',test:s=>s.hours>=1},
-  {id:'ten-hours',label:'10 Hours',icon:'\u{1F51F}',test:s=>s.hours>=10},
-  {id:'twenty-five',label:'25 Hours',icon:'\u{1F3C5}',test:s=>s.hours>=25},
-  {id:'fifty',label:'50 Hours',icon:'\u{1F3C6}',test:s=>s.hours>=50},
-  {id:'streak-3',label:'3-Day Streak',icon:'\u{1F525}',test:s=>s.streak>=3},
-  {id:'streak-7',label:'Week Warrior',icon:'\u{1F4AA}',test:s=>s.streak>=7},
-  {id:'explorer',label:'Explorer',icon:'\u{1F9ED}',test:s=>s.uniqueOpps>=3},
-  {id:'weekend',label:'Weekend Hero',icon:'\u{1F9B8}',test:s=>s.weekendLog},
-  {id:'habit-5',label:'Habit Builder',icon:'\u{1F31F}',test:s=>s.habitStreak>=5},
-  {id:'sleeper',label:'Well Rested',icon:'\u{1F634}',test:s=>s.sleepLogs>=7}
+  {id:'first-hour',label:'First Hour',test:s=>s.hours>=1},
+  {id:'ten-hours',label:'10 Hours',test:s=>s.hours>=10},
+  {id:'twenty-five',label:'25 Hours',test:s=>s.hours>=25},
+  {id:'fifty',label:'50 Hours',test:s=>s.hours>=50},
+  {id:'streak-3',label:'3-Day Streak',test:s=>s.streak>=3},
+  {id:'streak-7',label:'Week Warrior',test:s=>s.streak>=7},
+  {id:'explorer',label:'Explorer',test:s=>s.uniqueOpps>=3},
+  {id:'weekend',label:'Weekend Hero',test:s=>s.weekendLog},
+  {id:'habit-5',label:'Habit Builder',test:s=>s.habitStreak>=5},
+  {id:'sleeper',label:'Well Rested',test:s=>s.sleepLogs>=7}
 ];
 
 const DEFAULT_HABITS=[
-  {id:'study',name:'Study 2+ hours',icon:'\u{1F4DA}',bg:'var(--blue-soft)'},
-  {id:'exercise',name:'Exercise',icon:'\u{1F3CB}',bg:'var(--green-soft)'},
-  {id:'water',name:'Drink 8 glasses',icon:'\u{1F4A7}',bg:'var(--cyan-soft)'},
-  {id:'read',name:'Read 20 min',icon:'\u{1F4D6}',bg:'var(--purple-soft)'},
-  {id:'no-phone',name:'No phone before bed',icon:'\u{1F4F5}',bg:'var(--pink-soft)'},
-  {id:'meditate',name:'Meditate',icon:'\u{1F9D8}',bg:'var(--gold-soft)'}
+  {id:'study',name:'Study 2+ hours',icon:'book',bg:'var(--blue-soft)',color:'var(--blue)'},
+  {id:'exercise',name:'Exercise',icon:'dumbbell',bg:'var(--green-soft)',color:'var(--green)'},
+  {id:'water',name:'Drink 8 glasses',icon:'water',bg:'var(--cyan-soft)',color:'var(--cyan)'},
+  {id:'read',name:'Read 20 min',icon:'book',bg:'var(--purple-soft)',color:'var(--purple)'},
+  {id:'no-phone',name:'No phone before bed',icon:'phone',bg:'var(--pink-soft)',color:'var(--pink)'},
+  {id:'meditate',name:'Meditate',icon:'lotus',bg:'var(--gold-soft)',color:'var(--gold)'}
 ];
 
 const CHAT_RESPONSES={
+  greeting:["Hi — I'm your Time.AI coach. Tell me what's on your plate today, or ask me about studying, planning, sleep, stress, or staying motivated.","Ready to make today count? Tell me what you're stuck on, or ask me for a study, sleep, or planning tip.","Good to see you. What are we tackling today — a plan, an assignment, or just getting unstuck?"],
+  thanks:["Anytime. You've got this — come back whenever you need a game plan.","Happy to help. Now go knock out your next task.","Of course. Small steps, every day — that's the whole secret."],
+  capabilities:["I'm your college time-management coach. I can help you:\n• Study smarter — focus, exams, cramming\n• Plan your day and week\n• Sleep better\n• Manage stress\n• Find volunteer ideas\n• Handle roommate/social stuff\n• Stay motivated\nWhat do you want to tackle first?","Think of me as a pocket coach for college life. Ask me things like 'I have an exam tomorrow', 'plan my day', 'I can't sleep', 'I'm stressed', or 'I'm not motivated' — and I'll give you a real, doable next step."],
+  deadline:["Deep breath — you can do a lot in one focused push. Do this: 1) list only what's actually due, 2) start with the assignment worth the most points, 3) 25 min on, 5 off. Progress beats panic.","Crunch time! Aim to finish, not polish. Hit the biggest topics first (they're worth the most points), put your phone in another room, and go one 25-minute block at a time. One focused hour beats three distracted ones.","Behind is recoverable. Write every deadline with its due date, rank by 'worth the most + due soonest', then attack #1 for 25 minutes right now. Momentum is everything — starting is the hard part."],
   study:["Try the Pomodoro technique: 25 min focused study, 5 min break. After 4 rounds, take a longer 15-20 min break. It's been shown to boost retention by up to 25%!","Block your top 3 priorities each morning. Focus on one at a time — multitasking drops your IQ by about 10 points according to research.","Find your peak hours! Most students focus best either 9-11am or 7-10pm. Schedule your hardest subjects during your personal peak.","Use active recall instead of re-reading. Close your notes and try to write down everything you remember. It's 3x more effective than highlighting."],
   plan:["Here's a solid college day structure:\n• Morning: Hardest classes/study\n• Afternoon: Lighter work, exercise\n• Evening: Review, social time\n• Night: Wind down by 10pm\nAdjust to your schedule but keep the pattern!","Start each week with a 15-min planning session. List your top 3 goals, block study time, and schedule in breaks. Students who plan score 20% higher on average.","Use the 2-minute rule: if something takes less than 2 minutes, do it now. It prevents small tasks from piling up and overwhelming you."],
   sleep:["College students need 7-9 hours. Set a consistent bedtime — even on weekends. Your circadian rhythm will thank you and you'll feel sharper in morning classes.","Blue light from screens suppresses melatonin by up to 50%. Try the 1-hour rule: no screens 1 hour before bed. Read, stretch, or journal instead.","Your room temp matters! 65-68°F (18-20°C) is optimal for sleep. Also keep it dark — even small lights can disrupt your REM cycles.","Avoid caffeine after 2pm. It has a half-life of 5-6 hours, meaning that 3pm coffee is still 50% active at 9pm."],
   stress:["The 4-7-8 breathing technique works fast: breathe in for 4 counts, hold for 7, exhale for 8. Do 3-4 cycles when you feel overwhelmed.","Break big tasks into tiny steps. Instead of 'write research paper,' try 'find 3 sources today.' Small wins build momentum and reduce anxiety.","Schedule worry time — seriously! Give yourself 15 min to think about stressors, then move on. It sounds weird but research shows it reduces overall anxiety by 35%.","Exercise is the most underused antidepressant. Even a 20-minute walk releases endorphins and can improve your mood for 12+ hours."],
+  social:["College friendships usually start with repetition — sit near the same people, join one club, say yes to one hangout a week. It feels awkward at first for almost everyone; you're not alone in that.","Roommate friction is super common. A calm, specific ask ('could we agree on quiet hours after 11?') beats bottling it up. If it keeps up, your RA can help mediate.","Homesick or lonely is normal, especially early on. Build small routines, reach out to one person this week, and check out campus events — FGCU has a club for almost everything. It gets easier."],
   volunteer:["Volunteering 2+ hours per week is linked to lower stress levels and better grades. It's not just about giving back — it literally makes you a better student!","Look for volunteer opportunities that align with your major. Pre-med? Health clinics. Education? Tutoring. It builds your resume while helping others.","Group volunteering is a great way to build friendships. Grab your study group and sign up for a beach cleanup or food bank shift together!"],
   motivation:["You're not behind. You're exactly where you need to be. Progress isn't always visible day-to-day, but trust that your consistent effort is compounding.","The best students aren't the smartest — they're the most consistent. Show up every day, even when it's hard. That's what separates good from great.","Remember your 'why.' Why are you in college? What future are you building? Keep that vision front and center when motivation dips.","Celebrate small wins! Finished a chapter? Logged volunteer hours? Completed your habits today? That's worth acknowledging. Momentum starts with recognition."],
-  default:["I'm here to help you make the most of your time! Ask me about study tips, planning your day, sleep advice, stress management, volunteering, or staying motivated.","Great question! Here's a general tip: the most successful students plan their week on Sunday, track their habits daily, and get 7+ hours of sleep. Which of these would you like to work on?","I'd love to help! Try asking me about specific topics like 'study tips', 'plan my day', 'sleep advice', 'manage stress', 'volunteer ideas', or 'stay motivated'."]
+  default:["I'm here to help you make the most of your time! Ask me about study tips, planning your day, sleep, stress, volunteering, roommate/social stuff, or staying motivated.","Tell me a bit more and I'll give you a real next step. You can say things like 'I have an exam tomorrow', 'plan my day', 'I can't sleep', or 'I'm stressed'.","I'd love to help! Try a topic like 'study tips', 'plan my day', 'sleep advice', 'manage stress', 'volunteer ideas', or 'stay motivated'."]
 };
 
 const AVATAR_COLORS=['#10b981','#059669','#0d9488','#0891b2','#3b82f6','#6366f1','#8b5cf6','#a855f7','#d946ef','#ec4899','#f43f5e','#ef4444','#f97316','#f59e0b'];
@@ -700,6 +746,49 @@ function hasWeekendLog(){return state.logs.some(l=>{const d=new Date(l.date).get
 function userRank(){return FAKE_BOARD.filter(f=>f.hours>totalHours()).length+1}
 function esc(s){const d=document.createElement('span');d.textContent=s;return d.innerHTML}
 
+/* icons (clean line SVGs, inherit currentColor) */
+const ICON_PATHS={
+  home:'<path d="M3 9.8 12 3l9 6.8"/><path d="M5 9v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9"/><path d="M9.5 20v-6h5v6"/>',
+  heart:'<path d="M20.8 6.6a5 5 0 0 0-7.1 0L12 8.3l-1.7-1.7a5 5 0 1 0-7.1 7.1L12 22l8.8-8.3a5 5 0 0 0 0-7.1Z"/>',
+  pulse:'<path d="M22 12h-4l-3 8L9 4l-3 8H2"/>',
+  chat:'<path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 1 1 21 11.5Z"/>',
+  user:'<path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/>',
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/>',
+  check:'<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12 2.8 2.8L16 9"/>',
+  moon:'<path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a6.5 6.5 0 0 0 9.8 9.8Z"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.2-3.2"/>',
+  back:'<path d="M15 5l-7 7 7 7"/>',
+  pin:'<path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>',
+  bolt:'<path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z"/>',
+  external:'<path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+  users:'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6.1"/><path d="M17.5 14.2A5.5 5.5 0 0 1 20.5 19"/>',
+  leaf:'<path d="M4 20s.5-8 7-11c3.5-1.6 9-2 9-2s-.4 5.5-2 9c-3 6.5-11 6-14 4Z"/><path d="M4 20c3-6 7-8 11-9"/>',
+  book:'<path d="M12 6.5C10.4 5 7.8 4.5 4 4.5v13c3.8 0 6.4.5 8 2 1.6-1.5 4.2-2 8-2v-13c-3.8 0-6.4.5-8 2Z"/><path d="M12 6.5v13"/>',
+  cross:'<path d="M9.5 3h5v5.5H20v5h-5.5V19h-5v-5.5H4v-5h5.5Z"/>',
+  paw:'<circle cx="8" cy="8.5" r="1.7"/><circle cx="16" cy="8.5" r="1.7"/><circle cx="5.5" cy="13" r="1.5"/><circle cx="18.5" cy="13" r="1.5"/><path d="M12 12.5c-2.4 0-4 1.8-4 3.6 0 1.4 1.2 2.2 2.5 1.8a5 5 0 0 1 3 0c1.3.4 2.5-.4 2.5-1.8 0-1.8-1.6-3.6-4-3.6Z"/>',
+  bell:'<path d="M6 9a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+  volume:'<path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M17 8a5 5 0 0 1 0 8"/>',
+  dumbbell:'<path d="M6.5 6.5v11M17.5 6.5v11M4 9v6M20 9v6M6.5 12h11"/>',
+  water:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/>',
+  phone:'<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M11 18.5h2"/>',
+  lotus:'<path d="M12 20c-4 0-8-2.5-8-6 2 0 3.5.6 5 1.8M12 20c4 0 8-2.5 8-6-2 0-3.5.6-5 1.8M12 20c0-4 1.5-8 0-11-1.5 3 0 7 0 11Z"/>'
+};
+function icon(name,size){
+  return '<svg viewBox="0 0 24 24" width="'+(size||22)+'" height="'+(size||22)+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICON_PATHS[name]||'')+'</svg>';
+}
+const CAT_TILE={
+  community:{g:['#0f9d76','#2563eb'],i:'users'},
+  environment:{g:['#16a34a','#0f9d76'],i:'leaf'},
+  education:{g:['#2563eb','#7c3aed'],i:'book'},
+  health:{g:['#db2777','#dc2626'],i:'cross'},
+  animals:{g:['#ea580c','#c77b0a'],i:'paw'}
+};
+function catTile(cat,size){
+  const c=CAT_TILE[cat]||CAT_TILE.community;
+  return '<span class="opp-thumb" style="background:linear-gradient(135deg,'+c.g[0]+','+c.g[1]+')">'+
+    '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+ICON_PATHS[c.i]+'</svg></span>';
+}
+
 /* nav */
 const shell=document.getElementById('shell');
 const screens=[...document.querySelectorAll('.screen')];
@@ -716,6 +805,8 @@ function showScreen(name){
   if(name==='profile')renderProfile();
 }
 tabs.forEach(t=>t.addEventListener('click',()=>showScreen(t.dataset.tab)));
+document.querySelectorAll('[data-back]').forEach(b=>b.addEventListener('click',()=>showScreen('home')));
+document.querySelectorAll('[data-icon]').forEach(el=>{let sz=20;if(el.classList.contains('tab-ico'))sz=23;else if(el.classList.contains('search-icon')||el.classList.contains('s-icon'))sz=16;el.innerHTML=icon(el.dataset.icon,sz)});
 
 /* toast */
 const toastEl=document.getElementById('toast');
@@ -748,7 +839,7 @@ function renderHome(){
   const h=now.getHours();
   const firstName=state.user.name.split(/\s/)[0];
   const greeting=h<12?'Good morning':'Good afternoon';
-  document.getElementById('greeting').innerHTML=(h>=18?'Good evening':greeting)+', '+esc(firstName)+' <span class="wave">\u{1F44B}</span>';
+  document.getElementById('greeting').textContent=(h>=18?'Good evening':greeting)+', '+firstName;
   const hrs=totalHours();
   document.getElementById('h-hours').textContent=hrs%1===0?hrs:hrs.toFixed(1);
   document.getElementById('h-streak').textContent=streak();
@@ -784,12 +875,13 @@ function makeOppCard(opp,compact){
   const signed=state.signups.includes(opp.id);
   div.innerHTML=
     (opp.featured?'<span class="opp-featured">Featured</span>':'')+
-    '<span class="opp-icon" style="background:'+opp.bg+'">'+opp.icon+'</span>'+
+    catTile(opp.category)+
     '<div class="opp-info">'+
       '<div class="opp-org">'+esc(opp.org)+'</div>'+
       '<div class="opp-title">'+esc(opp.title)+'</div>'+
       (compact?'':'<div class="opp-desc">'+esc(opp.desc)+'</div>')+
-      '<div class="opp-meta"><span>\u{23F1} '+opp.estHours+'h</span><span>\u{1F4CD} '+esc(opp.location)+'</span><span>\u{26A1} '+opp.points+'pts</span></div>'+
+      '<div class="opp-meta"><span>'+icon('clock',13)+opp.estHours+'h</span><span>'+icon('pin',13)+esc(opp.location)+'</span><span>'+icon('bolt',13)+opp.points+' pts</span></div>'+
+      (opp.url?'<a class="opp-link" href="'+esc(opp.url)+'" target="_blank" rel="noopener noreferrer">'+icon('external',13)+'Visit website</a>':'')+
     '</div>'+
     '<div class="opp-action"><button class="opp-btn'+(signed?' signed':'')+'">'+(signed?'Signed Up':'Sign Up')+'</button></div>';
   const btn=div.querySelector('.opp-btn');
@@ -892,8 +984,8 @@ document.getElementById('manual-form').addEventListener('submit',e=>{
 function makeLogEntry(l,showDelete){
   const opp=OPPORTUNITIES.find(o=>o.id===l.oppId);
   const div=document.createElement('div');div.className='log-entry';
-  div.innerHTML='<span class="log-icon" style="background:'+(opp?opp.bg:'var(--green-soft)');
-  div.innerHTML+='">'+(opp?opp.icon:'\u{23F1}')+'</span><div class="log-info"><b>'+esc(opp?opp.title:'General volunteering')+'</b><small>'+esc(opp?opp.org:l.notes||'Volunteer work')+' &middot; '+new Date(l.date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})+'</small></div><span class="log-hours">'+l.hours+'h</span>';
+  const cat=opp?(CAT_TILE[opp.category]||CAT_TILE.community):null;
+  div.innerHTML='<span class="log-icon" style="background:var(--green-soft);color:var(--green)">'+icon(cat?cat.i:'clock',18)+'</span><div class="log-info"><b>'+esc(opp?opp.title:'General volunteering')+'</b><small>'+esc(opp?opp.org:l.notes||'Volunteer work')+' &middot; '+new Date(l.date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})+'</small></div><span class="log-hours">'+l.hours+'h</span>';
   if(showDelete){div.innerHTML+='<button class="log-del" data-id="'+l.id+'">&times;</button>';setTimeout(()=>{const btn=div.querySelector('.log-del');if(btn)btn.addEventListener('click',()=>{state.logs=state.logs.filter(x=>x.id!==l.id);save();renderLogs();renderHome();toast('Log removed')})},0)}
   return div;
 }
@@ -921,7 +1013,7 @@ function renderLeaderboard(){
   board.push({name:state.user.name,hours:Math.round(myHrs*4)/4,isMe:true});
   board.sort((a,b)=>b.hours-a.hours);
   const podiumEl=document.getElementById('podium');podiumEl.innerHTML='';
-  const medals=['\u{1F948}','\u{1F947}','\u{1F949}'],classes=['second','first','third'];
+  const medals=['2nd','1st','3rd'],classes=['second','first','third'];
   [1,0,2].forEach(pi=>{if(!board[pi])return;const p=board[pi];const div=document.createElement('div');div.className='podium-item '+classes[pi];div.innerHTML='<div class="podium-medal">'+medals[pi]+'</div><div class="podium-avatar" style="background:'+avatarColor(p.name)+'">'+initials(p.name)+'</div><div class="podium-name">'+(p.isMe?'You':esc(p.name))+'</div><div class="podium-hrs"><b>'+p.hours+'</b> hrs</div>';podiumEl.appendChild(div)});
   const listEl=document.getElementById('rank-list');listEl.innerHTML='';
   board.slice(3).forEach((p,i)=>{const div=document.createElement('div');div.className='rank-row'+(p.isMe?' me':'');div.innerHTML='<span class="rank-num">'+(i+4)+'</span><span class="rank-avatar" style="background:'+avatarColor(p.name)+'">'+initials(p.name)+'</span><span class="rank-name">'+(p.isMe?'You':esc(p.name))+'</span><span class="rank-hrs">'+p.hours+'h</span><span class="rank-pts">'+Math.round(p.hours*10)+' pts</span>';listEl.appendChild(div)});
@@ -955,7 +1047,7 @@ function renderHabits(){
     const div=document.createElement('div');div.className='habit-row';
     const checked=habitDone(h.id);
     const hStreak=habitStreak(h.id);
-    div.innerHTML='<span class="habit-icon" style="background:'+h.bg+'">'+h.icon+'</span><div class="habit-info"><b>'+esc(h.name)+'</b>'+(hStreak>0?'<div class="habit-streak">\u{1F525} '+hStreak+' day streak</div>':'')+'</div><button class="habit-check'+(checked?' done':'')+'">'+(checked?'\u{2713}':'')+'</button>';
+    div.innerHTML='<span class="habit-icon" style="background:'+h.bg+';color:'+(h.color||'var(--green)')+'">'+icon(ICON_PATHS[h.icon]?h.icon:'check',18)+'</span><div class="habit-info"><b>'+esc(h.name)+'</b>'+(hStreak>0?'<div class="habit-streak">'+hStreak+' day streak</div>':'')+'</div><button class="habit-check'+(checked?' done':'')+'">'+(checked?'\u{2713}':'')+'</button>';
     div.querySelector('.habit-check').addEventListener('click',()=>toggleHabit(h.id));
     list.appendChild(div);
   });
@@ -963,7 +1055,7 @@ function renderHabits(){
   sorted.forEach(h=>{
     const s=habitStreak(h.id);if(!s)return;
     const div=document.createElement('div');div.className='habit-row';
-    div.innerHTML='<span class="habit-icon" style="background:'+h.bg+'">'+h.icon+'</span><div class="habit-info"><b>'+esc(h.name)+'</b><small>'+s+' day'+(s>1?'s':'')+' straight</small></div><span style="font-size:20px">\u{1F525}</span>';
+    div.innerHTML='<span class="habit-icon" style="background:'+h.bg+';color:'+(h.color||'var(--green)')+'">'+icon(ICON_PATHS[h.icon]?h.icon:'check',18)+'</span><div class="habit-info"><b>'+esc(h.name)+'</b><small>'+s+' day'+(s>1?'s':'')+' straight</small></div><span class="streak-pill">'+s+'d</span>';
     streaks.appendChild(div);
   });
 }
@@ -971,10 +1063,11 @@ function renderHabits(){
 document.getElementById('add-habit-btn').addEventListener('click',()=>{
   const name=prompt('Habit name:');
   if(!name||!name.trim())return;
-  const icons=['\u{2B50}','\u{1F4AA}','\u{1F3AF}','\u{2705}','\u{1F4A1}','\u{1F680}'];
+  const icons=['check','book','pulse','clock','heart','water'];
   const bgs=['var(--green-soft)','var(--blue-soft)','var(--purple-soft)','var(--gold-soft)','var(--pink-soft)','var(--cyan-soft)'];
+  const colors=['var(--green)','var(--blue)','var(--purple)','var(--gold)','var(--pink)','var(--cyan)'];
   const idx=state.habits.length%icons.length;
-  state.habits.push({id:'custom-'+Date.now(),name:name.trim(),icon:icons[idx],bg:bgs[idx]});
+  state.habits.push({id:'custom-'+Date.now(),name:name.trim(),icon:icons[idx],bg:bgs[idx],color:colors[idx]});
   save();renderHabits();toast('Habit added!');
 });
 
@@ -1012,8 +1105,8 @@ document.getElementById('sleep-form').addEventListener('submit',e=>{
 function renderSleep(){
   const last=state.sleepLog[state.sleepLog.length-1];
   document.getElementById('sleep-last').textContent=last?last.hours+'h':'--';
-  const qEmoji=['\u{2014}','\u{1F634}','\u{1F615}','\u{1F642}','\u{1F60A}','\u{1F929}'];
-  document.getElementById('sleep-quality-display').textContent=last?qEmoji[last.quality]:'\u{2014}';
+  const qWord=['\u{2014}','Poor','Fair','Okay','Good','Great'];
+  document.getElementById('sleep-quality-display').textContent=last?qWord[last.quality]:'\u{2014}';
   const chart=document.getElementById('sleep-chart');chart.innerHTML='';
   const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const now=new Date(),startOfWeek=new Date(now);startOfWeek.setDate(startOfWeek.getDate()-startOfWeek.getDay());startOfWeek.setHours(0,0,0,0);
@@ -1060,23 +1153,43 @@ function addUserMsg(container,text){
   div.textContent=text;container.appendChild(div);container.scrollTop=container.scrollHeight;
 }
 function getResponse(input){
-  const lower=input.toLowerCase();
-  if(lower.match(/stud|homework|exam|test|class|gpa|grade|focus|concentrat|pomodoro/))return pick(CHAT_RESPONSES.study);
-  if(lower.match(/plan|schedul|organiz|routine|day|week|time manage|productiv|todo|to-do/))return pick(CHAT_RESPONSES.plan);
-  if(lower.match(/sleep|bed|tire|nap|rest|insomnia|wake|morning/))return pick(CHAT_RESPONSES.sleep);
-  if(lower.match(/stress|anxi|overwhelm|burnout|mental|depress|worry|panic|calm/))return pick(CHAT_RESPONSES.stress);
-  if(lower.match(/volunteer|service|community|help|give back|impact|hours/))return pick(CHAT_RESPONSES.volunteer);
-  if(lower.match(/motivat|inspir|goal|dream|success|give up|quit|lazy|procrastinat/))return pick(CHAT_RESPONSES.motivation);
-  return pick(CHAT_RESPONSES.default);
+  const l=input.toLowerCase().trim();
+  if(/^(hi|hey|hello|yo|sup|howdy|hiya|good (morning|afternoon|evening))\b/.test(l))return pick(CHAT_RESPONSES.greeting,'greeting');
+  if(/\b(thanks|thank you|thx|ty|appreciate)\b/.test(l))return pick(CHAT_RESPONSES.thanks,'thanks');
+  if(/what can you do|what do you do|who are you|what are you|how do you work|what can you help|your (capabilit|feature)/.test(l))return pick(CHAT_RESPONSES.capabilities,'capabilities');
+  if(/midterm|finals?\b|tomorrow|due |deadline|haven'?t started|last.?minute|cram|so behind|falling behind|running out of time|no time|overdue|procrastinat/.test(l))return pick(CHAT_RESPONSES.deadline,'deadline');
+  if(/stud|homework|exam|test|quiz|class|gpa|grade|focus|concentrat|pomodoro|assignment|essay|paper|project|memoriz/.test(l))return pick(CHAT_RESPONSES.study,'study');
+  if(/plan|schedul|organiz|routine|my day|my week|time manage|productiv|todo|to-do|prioriti|balance/.test(l))return pick(CHAT_RESPONSES.plan,'plan');
+  if(/sleep|bed|tire|nap|rest|insomnia|wake|woke|night owl|exhaust/.test(l))return pick(CHAT_RESPONSES.sleep,'sleep');
+  if(/stress|anxi|overwhelm|burnout|burn out|mental|depress|worry|worried|panic|calm|crying/.test(l))return pick(CHAT_RESPONSES.stress,'stress');
+  if(/roommate|friend|lonely|homesick|social|relationship|breakup|miss home|fitting in|fit in|make friends|club/.test(l))return pick(CHAT_RESPONSES.social,'social');
+  if(/volunteer|service|community|give back|nonprofit|charity|hours|donat/.test(l))return pick(CHAT_RESPONSES.volunteer,'volunteer');
+  if(/motivat|inspir|goal|dream|success|give up|quit|lazy|unmotivat|why bother/.test(l))return pick(CHAT_RESPONSES.motivation,'motivation');
+  if(/\bhelp\b|stuck|don'?t know|not sure|idk|confused|what should i/.test(l))return pick(CHAT_RESPONSES.capabilities,'capabilities');
+  return pick(CHAT_RESPONSES.default,'default');
 }
-function pick(arr){return arr[Math.floor(Math.random()*arr.length)]}
+const lastPick={};
+function pick(arr,key){
+  if(arr.length<2)return arr[0];
+  let i=Math.floor(Math.random()*arr.length);
+  if(key&&lastPick[key]===i)i=(i+1)%arr.length;
+  if(key)lastPick[key]=i;
+  return arr[i];
+}
 
+function addTyping(container){
+  const div=document.createElement('div');div.className='chat-msg bot';
+  div.innerHTML='<div class="bot-name">Time.AI</div><span class="typing-dots"><span></span><span></span><span></span></span>';
+  container.appendChild(div);container.scrollTop=container.scrollHeight;return div;
+}
 function sendChat(){
   const input=document.getElementById('chat-input');
   const text=input.value.trim();if(!text)return;
   const msgs=document.getElementById('chat-messages');
   addUserMsg(msgs,text);input.value='';
-  setTimeout(()=>addBotMsg(msgs,getResponse(text)),400+Math.random()*600);
+  const resp=getResponse(text);
+  const typing=addTyping(msgs);
+  setTimeout(()=>{if(typing.parentNode)typing.remove();addBotMsg(msgs,resp);},550+Math.random()*450);
 }
 document.getElementById('chat-send').addEventListener('click',sendChat);
 document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
@@ -1096,7 +1209,7 @@ function renderProfile(){
   const maxHabitStreak=state.habits.reduce((m,h)=>Math.max(m,habitStreak(h.id)),0);
   const stats={hours:hrs,streak:streak(),uniqueOpps:uniqueOpps(),weekendLog:hasWeekendLog(),habitStreak:maxHabitStreak,sleepLogs:state.sleepLog.length};
   const grid=document.getElementById('badge-grid');grid.innerHTML='';
-  BADGES.forEach(b=>{const el=document.createElement('span');el.className='badge'+(b.test(stats)?' earned':'');el.textContent=b.icon+' '+b.label;grid.appendChild(el)});
+  BADGES.forEach(b=>{const el=document.createElement('span');el.className='badge'+(b.test(stats)?' earned':'');el.textContent=b.label;grid.appendChild(el)});
 }
 
 /* settings */
