@@ -11,46 +11,57 @@
 @page{size:letter;margin:0}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:#0f2744;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.page{width:8.5in;min-height:11in;max-height:11in;margin:0 auto;padding:.4in .55in .35in;display:flex;flex-direction:column;background:#fff;overflow:hidden}
+.page{width:8.5in;height:11in;margin:0 auto;padding:.4in .55in .35in;display:flex;flex-direction:column;background:#fff;overflow:hidden;position:relative}
 
-.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.22in}
+.accent-top{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#0f9d76,#2563eb)}
+.accent-dots{position:absolute;top:.8in;right:.4in;opacity:.07}
+.accent-dots circle{fill:#0f9d76}
+
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.2in;padding-top:4px}
 .logo-area{display:flex;align-items:center;gap:12px}
-.logo-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#0f9d76,#2563eb);display:grid;place-items:center}
-.logo-icon svg{width:24px;height:24px}
-.brand{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;letter-spacing:-.02em}
+.logo-icon{width:48px;height:48px;border-radius:13px;background:linear-gradient(135deg,#0f9d76,#2563eb);display:grid;place-items:center}
+.logo-icon svg{width:26px;height:26px}
+.brand{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:800;letter-spacing:-.02em}
 .brand span{background:linear-gradient(135deg,#0f9d76,#2563eb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .tagline-top{font-size:10px;font-weight:600;color:#64748b;letter-spacing:.06em;text-transform:uppercase}
 .class-badge{font-size:9px;font-weight:700;color:#0f9d76;background:rgba(16,185,129,.1);border:1.5px solid rgba(16,185,129,.2);border-radius:99px;padding:5px 12px;letter-spacing:.04em}
 
-.hero-section{text-align:center;margin-bottom:.2in}
-.hero-section h1{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:800;line-height:1.25;margin-bottom:6px}
-.hero-section p{font-size:12.5px;color:#475569;line-height:1.55;max-width:5.5in;margin:0 auto}
+.hero-section{text-align:center;margin-bottom:.22in;padding:0 .3in}
+.hero-section h1{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:800;line-height:1.25;margin-bottom:8px}
+.hero-section p{font-size:13px;color:#475569;line-height:1.6}
+.free-badge{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(135deg,#0f9d76,#2563eb);padding:3px 12px;border-radius:99px;margin-left:4px;vertical-align:middle}
 
-.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.2in}
-.feature{padding:12px 14px;border-radius:12px;border:1.5px solid #e2e8f0}
-.feature .f-head{display:flex;align-items:center;gap:8px;margin-bottom:4px}
-.feature .f-icon{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;flex:none}
-.feature .f-title{font-family:'Space Grotesk',sans-serif;font-size:12.5px;font-weight:700}
-.feature .f-desc{font-size:10.5px;color:#64748b;line-height:1.45}
+.features{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:.18in}
+.feature{padding:14px 16px;border-radius:12px;border:1.5px solid #e2e8f0}
+.feature .f-head{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.feature .f-icon{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;font-size:15px;flex:none}
+.feature .f-title{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700}
+.feature .f-desc{font-size:10.5px;color:#64748b;line-height:1.5}
 
-.revenue-section{margin-bottom:.18in}
+.boost-callout{display:flex;gap:16px;align-items:center;margin-bottom:.18in;padding:16px 20px;border-radius:12px;border:2px solid rgba(220,38,38,.15);background:rgba(220,38,38,.03)}
+.boost-left{flex:none;width:48px;height:48px;border-radius:50%;background:rgba(220,38,38,.1);display:grid;place-items:center;font-size:24px}
+.boost-right{flex:1}
+.boost-right h3{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:700;margin-bottom:3px;color:#dc2626}
+.boost-right p{font-size:10.5px;color:#475569;line-height:1.5}
+
+.revenue-section{margin-bottom:.16in}
 .revenue-section h2{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
 .revenue-section h2::after{content:'';flex:1;height:1.5px;background:#e2e8f0}
 .revenue-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.rev-card{padding:10px 12px;border-radius:10px;border:1.5px solid #e2e8f0;text-align:center}
-.rev-card .rev-emoji{font-size:18px;margin-bottom:4px}
-.rev-card .rev-title{font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:700;margin-bottom:2px}
-.rev-card .rev-desc{font-size:9.5px;color:#64748b;line-height:1.4}
-.rev-card .rev-who{font-size:8px;font-weight:700;color:#0f9d76;margin-top:4px;text-transform:uppercase;letter-spacing:.06em}
+.rev-card{padding:12px 14px;border-radius:10px;border:1.5px solid #e2e8f0;text-align:center}
+.rev-card .rev-emoji{font-size:20px;margin-bottom:4px}
+.rev-card .rev-title{font-family:'Space Grotesk',sans-serif;font-size:11.5px;font-weight:700;margin-bottom:3px}
+.rev-card .rev-desc{font-size:9.5px;color:#64748b;line-height:1.45}
+.rev-card .rev-who{font-size:8px;font-weight:700;color:#0f9d76;margin-top:5px;text-transform:uppercase;letter-spacing:.06em}
 
-.impact-banner{border:1.5px solid #e2e8f0;border-radius:10px;padding:10px 16px;margin-bottom:.18in;display:flex;align-items:center;justify-content:center;gap:.5in}
+.impact-banner{border:1.5px solid #e2e8f0;border-radius:10px;padding:12px 16px;margin-bottom:.16in;display:flex;align-items:center;justify-content:center;gap:.6in}
 .impact-stat{text-align:center}
-.impact-stat .is-num{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:800;color:#0f9d76}
+.impact-stat .is-num{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:800;color:#0f9d76}
 .impact-stat .is-label{font-size:8px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-top:1px}
 
-.bottom-bar{margin-top:auto;display:flex;align-items:center;gap:.35in;padding-top:.15in;border-top:1.5px solid #e2e8f0}
+.bottom-bar{margin-top:auto;display:flex;align-items:center;gap:.35in;padding-top:.14in;border-top:1.5px solid #e2e8f0}
 .qr-area{flex:none;text-align:center}
-.qr-area img{width:1.3in;height:1.3in;border-radius:10px;border:2px solid #e2e8f0}
+.qr-area img{width:1.35in;height:1.35in;border-radius:10px;border:2px solid #e2e8f0}
 .qr-area .qr-label{font-size:9px;font-weight:700;color:#0f9d76;margin-top:5px;letter-spacing:.04em}
 .qr-area .qr-url{font-size:8px;color:#94a3b8;margin-top:1px}
 .bottom-info{flex:1}
@@ -60,8 +71,6 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
 .team-member{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;background:#f1f5f9;border-radius:99px;padding:4px 10px 4px 4px}
 .team-avatar{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:7px;font-weight:700;color:#fff}
 
-.free-badge{display:inline-block;font-size:10px;font-weight:700;color:#fff;background:linear-gradient(135deg,#0f9d76,#2563eb);padding:3px 12px;border-radius:99px;margin-left:4px;vertical-align:middle}
-
 @media print{
   .page{width:100%;height:100%;padding:.4in .55in .35in}
 }
@@ -69,6 +78,17 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
 </head>
 <body>
 <div class="page">
+
+  <div class="accent-top"></div>
+
+  <svg class="accent-dots" width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="10" cy="10" r="4"/><circle cx="30" cy="10" r="4"/><circle cx="50" cy="10" r="4"/><circle cx="70" cy="10" r="4"/><circle cx="90" cy="10" r="4"/><circle cx="110" cy="10" r="4"/>
+    <circle cx="10" cy="30" r="4"/><circle cx="30" cy="30" r="4"/><circle cx="50" cy="30" r="4"/><circle cx="70" cy="30" r="4"/><circle cx="90" cy="30" r="4"/><circle cx="110" cy="30" r="4"/>
+    <circle cx="10" cy="50" r="4"/><circle cx="30" cy="50" r="4"/><circle cx="50" cy="50" r="4"/><circle cx="70" cy="50" r="4"/><circle cx="90" cy="50" r="4"/><circle cx="110" cy="50" r="4"/>
+    <circle cx="10" cy="70" r="4"/><circle cx="30" cy="70" r="4"/><circle cx="50" cy="70" r="4"/><circle cx="70" cy="70" r="4"/><circle cx="90" cy="70" r="4"/><circle cx="110" cy="70" r="4"/>
+    <circle cx="10" cy="90" r="4"/><circle cx="30" cy="90" r="4"/><circle cx="50" cy="90" r="4"/><circle cx="70" cy="90" r="4"/><circle cx="90" cy="90" r="4"/><circle cx="110" cy="90" r="4"/>
+    <circle cx="10" cy="110" r="4"/><circle cx="30" cy="110" r="4"/><circle cx="50" cy="110" r="4"/><circle cx="70" cy="110" r="4"/><circle cx="90" cy="110" r="4"/><circle cx="110" cy="110" r="4"/>
+  </svg>
 
   <div class="header">
     <div class="logo-area">
@@ -104,28 +124,36 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
         <span class="f-icon" style="background:rgba(16,185,129,.12);color:#0f9d76">&#x1f91d;</span>
         <span class="f-title">Volunteer Tracking</span>
       </div>
-      <div class="f-desc">Discover local opportunities, log hours with a built-in timer or manual entry, and climb the leaderboard.</div>
+      <div class="f-desc">Discover local opportunities, log hours with a built-in timer or manual entry, and climb the leaderboard against other students.</div>
     </div>
     <div class="feature">
       <div class="f-head">
         <span class="f-icon" style="background:rgba(124,58,237,.1);color:#7c3aed">&#x2705;</span>
         <span class="f-title">Daily Habits</span>
       </div>
-      <div class="f-desc">Build streaks for studying, exercise, hydration, reading, and custom goals. Visual progress tracking.</div>
+      <div class="f-desc">Build streaks for studying, exercise, hydration, reading, and custom goals. Visual progress tracking keeps you accountable.</div>
     </div>
     <div class="feature">
       <div class="f-head">
         <span class="f-icon" style="background:rgba(37,99,235,.1);color:#2563eb">&#x1f319;</span>
         <span class="f-title">Sleep Tracking</span>
       </div>
-      <div class="f-desc">Log bedtime and wake time, rate quality, and see weekly trends with color-coded charts and averages.</div>
+      <div class="f-desc">Log bedtime and wake time, rate sleep quality, and see weekly trends with color-coded charts, averages, and goal tracking.</div>
     </div>
     <div class="feature">
       <div class="f-head">
         <span class="f-icon" style="background:rgba(8,145,178,.1);color:#0891b2">&#x1f4ac;</span>
         <span class="f-title">Smart Time Coach</span>
       </div>
-      <div class="f-desc">Get personalized study tips, stress management, day planning, and motivation from an always-available coach.</div>
+      <div class="f-desc">Get personalized study tips, stress management strategies, day planning, and motivation from an always-available coach.</div>
+    </div>
+  </div>
+
+  <div class="boost-callout">
+    <div class="boost-left">&#x1f4e3;</div>
+    <div class="boost-right">
+      <h3>Community Boost: Helping Nonprofits That Need It Most</h3>
+      <p>Organizations low on volunteers get automatically promoted to the top of the feed with a "Needs Help" badge and a live volunteer progress bar. Sponsored listing revenue funds these free boosts, so the platform's business model directly drives social impact.</p>
     </div>
   </div>
 
@@ -135,26 +163,26 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
       <div class="rev-card">
         <div class="rev-emoji">&#x1f3e2;</div>
         <div class="rev-title">Sponsored Listings</div>
-        <div class="rev-desc">Nonprofits pay to feature their opportunities at the top of the discover feed.</div>
+        <div class="rev-desc">Nonprofits pay to feature their volunteer opportunities at the top of the discover feed.</div>
         <div class="rev-who">Revenue funds Community Boost</div>
       </div>
       <div class="rev-card">
         <div class="rev-emoji">&#x1f3eb;</div>
         <div class="rev-title">University Licenses</div>
-        <div class="rev-desc">Schools pay a per-student fee for volunteer tracking and engagement analytics.</div>
+        <div class="rev-desc">Schools pay a per-student fee for volunteer tracking and student engagement analytics.</div>
         <div class="rev-who">Students use it free</div>
       </div>
       <div class="rev-card">
         <div class="rev-emoji">&#x1f4dc;</div>
         <div class="rev-title">Verified Transcripts</div>
-        <div class="rev-desc">Employers and career offices pay for verified volunteer hour records for hiring.</div>
+        <div class="rev-desc">Employers and career offices pay for verified volunteer hour records for hiring decisions.</div>
         <div class="rev-who">Free for students to export</div>
       </div>
     </div>
   </div>
 
   <div class="impact-banner">
-    <div class="impact-stat"><div class="is-num">4</div><div class="is-label">Features</div></div>
+    <div class="impact-stat"><div class="is-num">4</div><div class="is-label">Core Features</div></div>
     <div class="impact-stat"><div class="is-num">10</div><div class="is-label">Local Nonprofits</div></div>
     <div class="impact-stat"><div class="is-num">3</div><div class="is-label">Revenue Streams</div></div>
     <div class="impact-stat"><div class="is-num">$0</div><div class="is-label">Cost to Students</div></div>
@@ -168,12 +196,13 @@ html,body{width:100%;height:100%;font-family:'Inter',system-ui,sans-serif;color:
     </div>
     <div class="bottom-info">
       <h3>Try It Yourself</h3>
-      <p>Scan the QR code to open Time AI on your phone. Sign in with any name and email to explore volunteer tracking, habits, sleep, and the coach. No download required.</p>
+      <p>Scan the QR code to open Time AI on your phone. Sign in with any name and email to explore volunteer tracking, habits, sleep, and the coach. No download needed, runs in your browser.</p>
       <div class="team-row">
         <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#ec4899,#f472b6)">KC</span>Kevin C.</span>
         <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#10b981,#059669)">SS</span>Seth Stewart</span>
         <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#8b5cf6,#6366f1)">KD</span>Kaleb Davis</span>
         <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#f59e0b,#f97316)">BN</span>Brady N.</span>
+        <span class="team-member"><span class="team-avatar" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)">AM</span>Anthony Marino</span>
       </div>
     </div>
   </div>
