@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Semester &amp; Yearly Budget</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0f2744; --muted:#64748b; --line:#e2e8f0;
+    --green:#0f9d76; --blue:#2563eb; --wash:#f7faf9;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1920px;height:1080px;background:#fff;font-family:'Inter',system-ui,sans-serif;
+       color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
+  .slide{width:1920px;height:1080px;padding:64px 96px 56px;display:flex;flex-direction:column}
+
+  /* ---- header ---- */
+  .head{margin-bottom:38px}
+  .eyebrow{font-size:18px;font-weight:700;letter-spacing:.20em;text-transform:uppercase;
+    color:var(--green);margin-bottom:14px}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:66px;font-weight:700;
+    letter-spacing:-.022em;line-height:1}
+
+  /* ---- two panels ---- */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:52px;height:660px}
+  .panel{border:2px solid var(--line);border-radius:20px;padding:38px 46px 32px;
+    display:flex;flex-direction:column}
+  .panel.year{background:var(--wash);border-color:#cfe6dd}
+
+  .tag{display:inline-block;align-self:flex-start;font-size:14px;font-weight:700;
+    letter-spacing:.14em;text-transform:uppercase;padding:8px 18px;border-radius:99px;
+    margin-bottom:20px}
+  .tag.a{color:var(--blue);background:rgba(37,99,235,.10)}
+  .tag.b{color:var(--green);background:rgba(15,157,118,.12)}
+
+  .amt{font-family:'Space Grotesk',sans-serif;font-size:92px;font-weight:700;
+    line-height:.92;letter-spacing:-.03em}
+  .amt.g{color:var(--green)}
+  .sub{font-size:19px;color:var(--muted);margin-top:12px;margin-bottom:24px;font-weight:500}
+
+  .rows{list-style:none;flex:1}
+  .rows li{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    padding:13px 0;border-bottom:1px solid var(--line);font-size:21px}
+  .rows li:last-child{border-bottom:0}
+  .rows .k{color:#334155;font-weight:500}
+  .rows .v{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .rows li.free .v{color:var(--green)}
+
+  /* ---- footer note ---- */
+  .note{margin-top:28px;display:flex;align-items:center;gap:26px;
+    padding:22px 34px;border-radius:16px;background:var(--ink);flex:1}
+  .note .big{font-family:'Space Grotesk',sans-serif;font-size:27px;font-weight:700;
+    color:#fff;white-space:nowrap;flex:none}
+  .note .txt{font-size:19px;color:#b9c6d6;line-height:1.48}
+  .note .txt b{color:#7fe3c4;font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="head">
+    <div class="eyebrow">Time.AI &nbsp;·&nbsp; Cost &amp; Budgeting</div>
+    <h1>Semester &amp; Yearly Budget</h1>
+  </div>
+
+  <div class="cols">
+
+    <div class="panel">
+      <span class="tag a">Pilot Semester</span>
+      <div class="amt">$1,000</div>
+      <div class="sub">One campus &nbsp;·&nbsp; 4 months &nbsp;·&nbsp; built in-house</div>
+      <ul class="rows">
+        <li><span class="k">Marketing &amp; campus outreach</span><span class="v">$350</span></li>
+        <li><span class="k">Legal &amp; compliance (one-time)</span><span class="v">$250</span></li>
+        <li><span class="k">AI / API — coach</span><span class="v">$200</span></li>
+        <li><span class="k">Tools, hosting &amp; domain</span><span class="v">$100</span></li>
+        <li><span class="k">Contingency</span><span class="v">$100</span></li>
+        <li class="free"><span class="k">Development &amp; hosting</span><span class="v">$0</span></li>
+      </ul>
+    </div>
+
+    <div class="panel year">
+      <span class="tag b">Year One at Scale</span>
+      <div class="amt g">$10,000</div>
+      <div class="sub">Multi-campus &nbsp;·&nbsp; paid stipends &nbsp;·&nbsp; real marketing</div>
+      <ul class="rows">
+        <li><span class="k">Developer stipend</span><span class="v">$3,600</span></li>
+        <li><span class="k">Marketing &amp; outreach</span><span class="v">$2,400</span></li>
+        <li><span class="k">AI / API at scale</span><span class="v">$1,800</span></li>
+        <li><span class="k">Legal &amp; compliance</span><span class="v">$1,000</span></li>
+        <li><span class="k">Tools, hosting &amp; domain</span><span class="v">$600</span></li>
+        <li><span class="k">Insurance, admin &amp; contingency</span><span class="v">$600</span></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <span class="big">Why the pilot is $1,000</span>
+    <span class="txt">We build it ourselves and there is no backend — the app runs on
+      <b>free hosting</b> with data stored on the student's own device.
+      The $10,000 is what it costs once we pay a developer and expand past one campus.</span>
+  </div>
+
+</div>
+</body>
+</html>

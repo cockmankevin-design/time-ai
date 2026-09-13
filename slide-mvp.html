@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Your Original MVP</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#0f2744; --muted:#64748b; --line:#e2e8f0; --green:#0f9d76; --blue:#2563eb; --wash:#f7faf9; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1920px;height:1080px;background:#fff;font-family:'Inter',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
+  .slide{width:1920px;height:1080px;padding:64px 96px 56px;display:flex;flex-direction:column}
+  .head{margin-bottom:38px}
+  .eyebrow{font-size:18px;font-weight:700;letter-spacing:.20em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:60px;font-weight:700;letter-spacing:-.02em;line-height:1}
+
+  .cols{display:grid;grid-template-columns:1fr 76px 1fr;align-items:center;height:520px}
+  .panel{border:2px solid var(--line);border-radius:20px;padding:36px 42px;height:100%;display:flex;flex-direction:column}
+  .panel.now{background:var(--wash);border-color:#cfe6dd}
+  .tag{display:inline-block;align-self:flex-start;font-size:14px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:8px 18px;border-radius:99px;margin-bottom:18px}
+  .tag.a{color:var(--blue);background:rgba(37,99,235,.10)}
+  .tag.b{color:var(--green);background:rgba(15,157,118,.12)}
+  .pname{font-family:'Space Grotesk',sans-serif;font-size:42px;font-weight:700;margin-bottom:6px}
+  .ptag{font-size:19px;color:var(--muted);margin-bottom:22px}
+  .feat{display:flex;align-items:flex-start;gap:14px;padding:10px 0;font-size:20px;border-bottom:1px solid var(--line)}
+  .feat:last-child{border-bottom:0}
+  .feat b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--line);color:var(--ink);font-size:13px;display:grid;place-items:center;font-weight:700}
+  .panel.now .feat b{background:rgba(15,157,118,.16);color:var(--green)}
+
+  .arrow{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .arrow svg{width:52px;height:52px}
+  .arrow .why{font-size:13px;color:var(--muted);text-align:center;font-weight:600;letter-spacing:.02em;max-width:110px}
+
+  .finding{margin-top:30px;display:flex;align-items:center;gap:26px;padding:22px 34px;border-radius:16px;background:var(--ink);flex:1}
+  .finding .big{font-family:'Space Grotesk',sans-serif;font-size:27px;font-weight:700;color:#fff;white-space:nowrap;flex:none}
+  .finding .txt{font-size:19px;color:#b9c6d6;line-height:1.48}
+  .finding .txt b{color:#7fe3c4;font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="head">
+    <div class="eyebrow">Time.AI &nbsp;·&nbsp; Your Original MVP</div>
+    <h1>We Didn't Start Here.</h1>
+  </div>
+
+  <div class="cols">
+    <div class="panel">
+      <span class="tag a">V1 — Tested First</span>
+      <div class="pname">"Top 3"</div>
+      <div class="ptag">A personal productivity app</div>
+      <div class="feat"><b>1</b>3-task daily cap — the app physically refused a 4th task</div>
+      <div class="feat"><b>2</b>25-minute phone-face-down focus timer</div>
+      <div class="feat"><b>3</b>One daily motivational quote</div>
+      <div class="feat"><b>4</b>Sleep check-in with a nightly streak</div>
+    </div>
+
+    <div class="arrow">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h15M13 6l6 6-6 6" stroke="#0f9d76" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="why">Campus testing<br>changed our minds</span>
+    </div>
+
+    <div class="panel now">
+      <span class="tag b">V2 — What We Built</span>
+      <div class="pname">Time.AI</div>
+      <div class="ptag">A student volunteer platform</div>
+      <div class="feat"><b>1</b>Same habit &amp; sleep tracking, kept because it worked</div>
+      <div class="feat"><b>2</b>Volunteer hour tracking tied to real local nonprofits</div>
+      <div class="feat"><b>3</b>Community Boost — funds free visibility for orgs in need</div>
+      <div class="feat"><b>4</b>A revenue model that pays for the free tier</div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="big">Why we pivoted</span>
+    <span class="txt">"Top 3" reduced overplanning, but it solved <b>a moment, not a habit</b> — students had no reason
+      to come back, and the app generated no revenue and no community partner. Time.AI fixes both.</span>
+  </div>
+</div>
+</body>
+</html>

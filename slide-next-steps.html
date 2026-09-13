@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Next Steps</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --ink:#0f2744; --muted:#64748b; --line:#e2e8f0; --green:#0f9d76; --blue:#2563eb; --wash:#f7faf9; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1920px;height:1080px;background:#fff;font-family:'Inter',system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;overflow:hidden}
+  .slide{width:1920px;height:1080px;padding:64px 96px 56px;display:flex;flex-direction:column}
+  .head{margin-bottom:44px}
+  .eyebrow{font-size:18px;font-weight:700;letter-spacing:.20em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+  h1{font-family:'Space Grotesk',sans-serif;font-size:60px;font-weight:700;letter-spacing:-.02em;line-height:1}
+
+  .row{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;height:560px}
+  .card{border:2px solid var(--line);border-radius:20px;padding:36px 30px;display:flex;flex-direction:column}
+  .card:nth-child(1){background:var(--wash);border-color:#cfe6dd}
+  .num{font-family:'Space Grotesk',sans-serif;font-size:44px;font-weight:700;color:var(--green);margin-bottom:22px}
+  .card:not(:nth-child(1)) .num{color:#c7d2df}
+  .ctitle{font-family:'Space Grotesk',sans-serif;font-size:25px;font-weight:700;margin-bottom:14px;line-height:1.15}
+  .cdesc{font-size:18px;color:var(--muted);line-height:1.55}
+
+  .finding{margin-top:28px;display:flex;align-items:center;gap:26px;padding:22px 34px;border-radius:16px;background:var(--ink);flex:1}
+  .finding .big{font-family:'Space Grotesk',sans-serif;font-size:27px;font-weight:700;color:#fff;white-space:nowrap;flex:none}
+  .finding .txt{font-size:19px;color:#b9c6d6;line-height:1.48}
+  .finding .txt b{color:#7fe3c4;font-weight:600}
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="head">
+    <div class="eyebrow">Time.AI &nbsp;·&nbsp; Next Steps</div>
+    <h1>What We'd Do With Another Semester.</h1>
+  </div>
+
+  <div class="row">
+    <div class="card">
+      <div class="num">01</div>
+      <div class="ctitle">Convert Partners</div>
+      <div class="cdesc">Turn our ten integrated organizations into signed agreements, and land the first paid
+        sponsored listing to fund Community Boost.</div>
+    </div>
+    <div class="card">
+      <div class="num">02</div>
+      <div class="ctitle">Upgrade the Coach</div>
+      <div class="cdesc">Swap the on-device rule-based coach for the Claude API, enabling open-ended
+        conversation instead of scripted tips.</div>
+    </div>
+    <div class="card">
+      <div class="num">03</div>
+      <div class="ctitle">Pitch FGCU</div>
+      <div class="cdesc">Present the university license — per-student pricing with engagement analytics for
+        student affairs and retention teams.</div>
+    </div>
+    <div class="card">
+      <div class="num">04</div>
+      <div class="ctitle">Expand</div>
+      <div class="cdesc">Extend beyond FGCU to other Southwest Florida campuses, using our pilot data to prove
+        the model before we scale it.</div>
+    </div>
+  </div>
+
+  <div class="finding">
+    <span class="big">Where we stand</span>
+    <span class="txt">The app is <b>already live</b> — students can use it today, for free, at
+      cockmankevin-design.github.io/time-ai. Every step above builds on something real, not a plan on paper.</span>
+  </div>
+</div>
+</body>
+</html>
